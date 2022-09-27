@@ -17,11 +17,19 @@ client.messages
   })
   .then((message) => console.log(message.sid));
 
-app.post("/welcome/sms/reply/", (req, res) => {
-  console.log(req);
+app.get("/response", (req, res) => {
+  // This logs the message that was sent!  We want to be able to get this to the account holders phone number!
+  // In a local environment, ngrok needs to be running to send replies.  The ngrok forwarding tunnel has to be
+  // configured in the twilio console
+
+  console.log(req.query.Body);
   const twiml = new MessagingResponse();
 
-  twiml.message("The Robots are coming! Head for the hills!");
+  const message = twiml.message();
+  message.body("The Robots are coming! Head for the hills!");
+  message.media(
+    "https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg"
+  );
 
   res.type("text/xml").send(twiml.toString());
 });
