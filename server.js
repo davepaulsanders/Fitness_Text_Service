@@ -1,21 +1,15 @@
-require("dotenv").config();
 const express = require("express");
 const { MessagingResponse } = require("twilio").twiml;
 const db = require("./config/connection");
 const app = express();
 const Client = require("./models/Client");
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const Message = require("./models/Message");
+const controllers = require("./controllers");
 
-const client = require("twilio")(accountSid, authToken);
 
-client.messages
-  .create({
-    body: "Thanks for joining!",
-    from: "+19123257761",
-    to: "+16095294847",
-  })
-  .then((message) => console.log(message.sid));
+
+app.use(controllers)
+
 
 app.get("/response", (req, res) => {
   // This logs the message that was sent!  We want to be able to get this to the account holders phone number!
@@ -32,12 +26,21 @@ app.get("/response", (req, res) => {
 });
 db.once("open", async () => {
   try {
+
+    // dropping in case schemas have changed
+    await db.dropCollection("clients");
+    await db.dropCollection("messages");
     await Client.create({
       firstName: "Dave",
       lastName: "Sanders",
       email: "davepaulsanders@gmail.com",
-      phoneNumber: "609-529-4847",
+      phoneNumber: "6095294847",
       weightLossGoals: "15 pounds",
+    });
+
+    await Message.create({
+      messageText: "This is the first day message",
+      messageDay: 1,
     });
   } catch (err) {
     console.log(err);

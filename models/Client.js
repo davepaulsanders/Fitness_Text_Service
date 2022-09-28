@@ -16,14 +16,12 @@ const clientSchema = new Schema({
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Please use a valid email address",
     ],
+    unique: true,
   },
   phoneNumber: {
     type: "String",
     required: "true",
-    match: [
-      /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/,
-      "Please use a valid phone number!",
-    ],
+    unique: true,
   },
   weightLossGoals: {
     type: "String",
