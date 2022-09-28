@@ -11,7 +11,7 @@ const client = require("twilio")(accountSid, authToken);
 
 client.messages
   .create({
-    body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+    body: "Thanks for joining!",
     from: "+19123257761",
     to: "+16095294847",
   })
@@ -21,15 +21,12 @@ app.get("/response", (req, res) => {
   // This logs the message that was sent!  We want to be able to get this to the account holders phone number!
   // In a local environment, ngrok needs to be running to send replies.  The ngrok forwarding tunnel has to be
   // configured in the twilio console
-
+  //localhost 4040 logs requests when ngrok is running
   console.log(req.query.Body);
   const twiml = new MessagingResponse();
 
   const message = twiml.message();
-  message.body("The Robots are coming! Head for the hills!");
-  message.media(
-    "https://farm8.staticflickr.com/7090/6941316406_80b4d6d50e_z_d.jpg"
-  );
+  message.body("We got your message! Expect a text back from 555-555-5555");
 
   res.type("text/xml").send(twiml.toString());
 });
