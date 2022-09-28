@@ -1,9 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const { MessagingResponse } = require("twilio").twiml;
-
+const db = require("./config/connection");
 const app = express();
-
+const Client = require("./models/Client");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
@@ -30,7 +30,19 @@ app.get("/response", (req, res) => {
 
   res.type("text/xml").send(twiml.toString());
 });
-
-app.listen(3000, () => {
-  console.log("Express server listening on port 3000");
+db.once("open", async () => {
+  try {
+    await Client.create({
+      firstName: "Dave",
+      lastName: "Sanders",
+      email: "davepaulsanders@gmail.com",
+      phoneNumber: "609-529-4847",
+      weightLossGoals: "15 pounds",
+    });
+  } catch (err) {
+    console.log(err);
+  }
+  app.listen(3000, () => {
+    console.log("Express server listening on port 3000");
+  });
 });
