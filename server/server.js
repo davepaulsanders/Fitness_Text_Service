@@ -7,9 +7,7 @@ const Message = require("./models/Message");
 const controllers = require("./controllers");
 
 
-
-app.use(controllers)
-
+app.use(controllers);
 
 app.get("/response", (req, res) => {
   // This logs the message that was sent!  We want to be able to get this to the account holders phone number!
@@ -24,7 +22,6 @@ app.get("/response", (req, res) => {
 
   res.type("text/xml").send(twiml.toString());
 });
-
 
 db.once("open", async () => {
   try {

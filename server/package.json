@@ -12,6 +12,7 @@
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "mongoose": "^6.6.2",
+    "node-cron": "^3.0.2",
     "twilio": "^3.82.1"
   }
 }
