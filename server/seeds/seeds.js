@@ -4,7 +4,9 @@ const Message = require("../models/Message");
 require("dotenv").config();
 const margePhone = Number(process.env.MARGE_PHONE);
 
+
 db.once("open", async () => {
+    console.log("seeding database...");
   try {
     await Client.deleteMany({});
     await Message.deleteMany({});
@@ -23,6 +25,7 @@ db.once("open", async () => {
 
     await Client.insertMany([
       {
+        username: "davepsandy",
         firstName: "Dave",
         lastName: "Sanders",
         email: "davepaulsanders@gmail.com",
@@ -30,6 +33,7 @@ db.once("open", async () => {
         weightLossGoals: "15 pounds",
       },
       {
+        username: "margenice",
         firstName: "Margaret",
         lastName: "Nice",
         email: "margeenice@gmail.com",

@@ -2,10 +2,9 @@ const express = require("express");
 const { MessagingResponse } = require("twilio").twiml;
 const db = require("./config/connection");
 const app = express();
-const Client = require("./models/Client");
-const Message = require("./models/Message");
 const controllers = require("./controllers");
-
+const twilio = require("twilio");
+const scheduledSMS = require("./scheduledSMS");
 
 app.use(controllers);
 
@@ -24,25 +23,10 @@ app.get("/response", (req, res) => {
 });
 
 db.once("open", async () => {
-  try {
-    // dropping in case schemas have changed
-    await db.dropCollection("clients");
-    await db.dropCollection("messages");
-    await Client.create({
-      firstName: "Dave",
-      lastName: "Sanders",
-      email: "davepaulsanders@gmail.com",
-      phoneNumber: "6095294847",
-      weightLossGoals: "15 pounds",
-    });
+  // start scheduled SMS process
 
-    await Message.create({
-      messageText: "This is the first day message",
-      messageDay: 1,
-    });
-  } catch (err) {
-    console.log(err);
-  }
+  scheduledSMS.initScheduledSMS();
+  
   app.listen(3000, () => {
     console.log("Express server listening on port 3000");
   });
