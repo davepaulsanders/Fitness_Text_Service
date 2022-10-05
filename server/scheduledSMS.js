@@ -1,9 +1,16 @@
+// automated scheduling npm package
 const cron = require("node-cron");
+
+// function that connects to twilio and sends the messages
 const dailyMessage = require("./dailyMessage");
+
+// models
 const Client = require("./models/Client");
 const Message = require("./models/Message");
 
 exports.initScheduledSMS = () => {
+  // initiates this process regularly at set time
+
   const scheduledSMS = cron.schedule("*/1 * * * *", async () => {
     const clients = await Client.find({});
     // messages sorted by which day it is supposed to be sent
@@ -15,7 +22,7 @@ exports.initScheduledSMS = () => {
         // send specific daily message to clients
         dailyMessage(client, messages);
       });
-      res.send("messages sent!");
+      console.log("messages sent");
     } catch (err) {
       console.log(err);
     }
