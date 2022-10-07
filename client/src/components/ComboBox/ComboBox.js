@@ -18,11 +18,11 @@ export const ComboBox = ({ singleSelection, clients }) => {
   // state for autocomplete
   const [query, setQuery] = useState("");
 
-  const updateClient = (person) => {
-    if (person.name === selected.name) {
+  const updateClient = (client) => {
+    if (client._id === selected._id) {
       setSelected([]);
     } else {
-      setSelected(person);
+      setSelected(client);
     }
   };
   // filtered list
