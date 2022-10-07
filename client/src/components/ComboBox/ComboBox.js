@@ -17,13 +17,13 @@ export const ComboBox = ({ singleSelection, clients }) => {
 
   // state for autocomplete
   const [query, setQuery] = useState("");
-  const updateClient = (client) => {
-    if (client._id === selected._id) {
-      setSelected([]);
-    } else {
-      setSelected(client);
-    }
-  };
+  // const updateClient = (client) => {
+  //   if (client._id === selected._id) {
+  //     setSelected([]);
+  //   } else {
+  //     setSelected(client);
+  //   }
+  // };
   // filtered list
   const filteredPeople =
     query === ""
@@ -34,13 +34,12 @@ export const ComboBox = ({ singleSelection, clients }) => {
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
-  console.log(filteredPeople);
   if (clients) {
     return (
       <div className="w-full">
         <Combobox
           value={selected}
-          onChange={updateClient}
+          onChange={setSelected}
           multiple={singleSelection ? false : true}
         >
           <div className="relative mt-1">
@@ -52,10 +51,10 @@ export const ComboBox = ({ singleSelection, clients }) => {
                     : "Choose clients to send messages to!"
                 }
                 className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                displayValue={
-                  singleSelection
-                    ? (person) => person.name
-                    : (people) => people.map((person) => person.name).join(", ")
+                displayValue={(selected) =>
+                  selected.length === 0
+                    ? null
+                    : `${selected.firstName} ${selected.lastName}`
                 }
                 onChange={(event) => setQuery(event.target.value)}
               />
