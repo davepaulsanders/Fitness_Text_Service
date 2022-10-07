@@ -2,7 +2,7 @@ import React from "react";
 
 export const Login = () => {
   return (
-    <div className="rounded-md p-6 w-4/12 shadow">
+    <div className="rounded-md p-6 w-11/12 lg:w-3/12 shadow">
       <h1 className="text-left mb-6 text-2xl font-bold">
         Welcome Bonnie and Will!
       </h1>
