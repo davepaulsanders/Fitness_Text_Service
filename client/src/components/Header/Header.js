@@ -1,8 +1,8 @@
 import React from "react";
 import "./Header.css";
 export const Header = () => {
-
   const toggleMenu = () => {
+    document.querySelector("ul").classList.add("transition");
     if (document.querySelector("ul").classList.contains("openMenu")) {
       document.querySelector("ul").classList.remove("openMenu");
       document.querySelector(".close").style.display = "none";
@@ -13,6 +13,18 @@ export const Header = () => {
       document.querySelector(".hamburger").style.display = "none";
     }
   };
+
+  window.addEventListener("resize", () => {
+    document.querySelector("ul").classList.remove("transition");
+    if (window.innerWidth > 700) {
+      document.querySelector(".hamburger").style.display = "none";
+      document.querySelector(".close").style.display = "none";
+    } else {
+      document.querySelector(".hamburger").style.display = "block";
+      document.querySelector(".close").style.display = "none";
+    }
+    document.querySelector("ul").classList.remove("openMenu");
+  });
   return (
     <header className="absolute top-0 left-0 md:px-12 md:pt-8 flex w-full items-center justify-between">
       <a className="pl-6" href="/">

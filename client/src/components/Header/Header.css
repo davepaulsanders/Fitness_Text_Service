@@ -14,10 +14,11 @@ header {
 }
 
 ul {
-    transition: transform 0.3s ease-in-out;
     right: 3rem;
 }
-
+.transition {
+    transition: transform 0.3s ease-in-out;
+}
 .openMenu {
     transform: translateX(0);
 }
