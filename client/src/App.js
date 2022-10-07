@@ -1,11 +1,10 @@
 import "./App.css";
-import { Login } from "./components/Login/Login";
-import { ComboBox } from "./components/ComboBox/ComboBox";
+import { Landing } from "./pages/Landing/Landing";
 
 function App() {
   return (
-    <div className="App flex justify-center items-center w-full">
-      <ComboBox></ComboBox>
+    <div className="App flex flex-col justify-center items-center">
+      <Landing />
     </div>
   );
 }

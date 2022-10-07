@@ -12,9 +12,13 @@ const people = [
 ];
 
 export const ComboBox = () => {
+  // selected options from list
   const [selected, setSelected] = useState([]);
+
+  // state for autocomplete
   const [query, setQuery] = useState("");
 
+  // filtered list
   const filteredPeople =
     query === ""
       ? people
@@ -31,8 +35,8 @@ export const ComboBox = () => {
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
-            placeholder="Choose clients to send messages to!"
-              className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+              placeholder="Choose clients to send messages to!"
+              className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
               displayValue={(people) =>
                 people.map((person) => person.name).join(", ")
               }
