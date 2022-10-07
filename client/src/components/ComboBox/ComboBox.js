@@ -14,7 +14,7 @@ const people = [
 export const ComboBox = ({ singleSelection, clients }) => {
   // selected options from list
   const [selected, setSelected] = useState([]);
-
+  console.log(selected);
   // state for autocomplete
   const [query, setQuery] = useState("");
 
