@@ -1,12 +1,10 @@
 import "./App.css";
-import { Landing } from "./pages/Landing/Landing";
+import { Header } from "./components/Header/Header";
 
 function App() {
-  return (
-    <div className="App flex flex-col justify-center items-center">
-      <Landing />
-    </div>
-  );
+  return <div className="App flex flex-col justify-center items-center">
+    <Header />
+  </div>;
 }
 
 export default App;
