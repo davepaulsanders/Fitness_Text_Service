@@ -1,0 +1,23 @@
+{
+  "name": "fitnesstext",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davepaulsanders/Fitness_Text_Service.git"
+  },
+  "author": "Dave Sanders",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davepaulsanders/Fitness_Text_Service/issues"
+  },
+  "homepage": "https://github.com/davepaulsanders/Fitness_Text_Service#readme",
+  "dependencies": {
+    "concurrently": "^7.4.0"
+  }
+}

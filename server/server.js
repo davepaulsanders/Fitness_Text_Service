@@ -1,11 +1,15 @@
 const express = require("express");
 const { MessagingResponse } = require("twilio").twiml;
 const db = require("./config/connection");
-const app = express();
 const controllers = require("./controllers");
 const twilio = require("twilio");
 const scheduledSMS = require("./scheduledSMS");
+const cors = require("cors");
 
+const app = express();
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(controllers);
 
 app.get("/response", (req, res) => {
@@ -25,9 +29,9 @@ app.get("/response", (req, res) => {
 db.once("open", async () => {
   // start scheduled SMS process
 
-  scheduledSMS.initScheduledSMS();
-  
-  app.listen(3000, () => {
+  //scheduledSMS.initScheduledSMS();
+
+  app.listen(3001, () => {
     console.log("Express server listening on port 3000");
   });
 });

@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ComboBox } from "../../components/ComboBox/ComboBox";
 import { ClientEditForm } from "../../components/ClientEditForm/ClientEditForm";
 export const EditClients = () => {
+  const [clients, setClients] = useState();
+  useEffect(() => {
+    getClients();
+  }, []);
+
+  const getClients = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/clients");
+      const clients = await response.json();
+      setClients(clients);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="w-full flex flex-col lg:flex-row items-center justify-around">
       <div className="flex items-center">
-        <ComboBox singleSelection={true} />
+        <ComboBox singleSelection={true} clients={clients} />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
