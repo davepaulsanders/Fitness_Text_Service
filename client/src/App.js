@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Header } from "./components/Header/Header";
 import { Login } from "./components/Login/Login";
 import { Landing } from "./pages/Landing/Landing";
+import { EditClients } from "./pages/EditClients/EditClients";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -20,6 +21,7 @@ function App() {
                 </>
               }
             />
+            <Route path="/clients" element={<EditClients />} />
           </Routes>
         </Router>
       </div>
