@@ -26,15 +26,15 @@ export const ComboBox = ({ singleSelection, clients }) => {
   };
   // filtered list
   const filteredPeople =
-  query === ""
-  ? clients
-  : clients.filter((client) =>
-  client.lastName
-  .toLowerCase()
-  .replace(/\s+/g, "")
-  .includes(query.toLowerCase().replace(/\s+/g, ""))
-  );
-  
+    query === ""
+      ? clients
+      : clients.filter((client) =>
+          client.lastName
+            .toLowerCase()
+            .replace(/\s+/g, "")
+            .includes(query.toLowerCase().replace(/\s+/g, ""))
+        );
+  console.log(filteredPeople);
   if (clients) {
     return (
       <div className="w-full">
@@ -79,7 +79,7 @@ export const ComboBox = ({ singleSelection, clients }) => {
                     Nothing found.
                   </div>
                 ) : (
-                  clients.map((client) => (
+                  filteredPeople.map((client) => (
                     <Combobox.Option
                       key={client._id}
                       className={({ active }) =>
