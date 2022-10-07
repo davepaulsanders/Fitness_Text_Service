@@ -14,10 +14,9 @@ const people = [
 export const ComboBox = ({ singleSelection, clients }) => {
   // selected options from list
   const [selected, setSelected] = useState([]);
-  console.log(selected);
+
   // state for autocomplete
   const [query, setQuery] = useState("");
-
   const updateClient = (client) => {
     if (client._id === selected._id) {
       setSelected([]);
@@ -27,14 +26,15 @@ export const ComboBox = ({ singleSelection, clients }) => {
   };
   // filtered list
   const filteredPeople =
-    query === ""
-      ? people
-      : people.filter((person) =>
-          person.name
-            .toLowerCase()
-            .replace(/\s+/g, "")
-            .includes(query.toLowerCase().replace(/\s+/g, ""))
-        );
+  query === ""
+  ? clients
+  : clients.filter((client) =>
+  client.lastName
+  .toLowerCase()
+  .replace(/\s+/g, "")
+  .includes(query.toLowerCase().replace(/\s+/g, ""))
+  );
+  
   if (clients) {
     return (
       <div className="w-full">
