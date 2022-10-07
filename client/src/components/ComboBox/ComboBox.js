@@ -11,13 +11,20 @@ const people = [
   { id: 6, name: "Hellen Schmidt" },
 ];
 
-export const ComboBox = () => {
+export const ComboBox = ({ singleSelection }) => {
   // selected options from list
   const [selected, setSelected] = useState([]);
 
   // state for autocomplete
   const [query, setQuery] = useState("");
 
+  const updateClient = (person) => {
+    if (person.name === selected.name) {
+      setSelected([]);
+    } else {
+      setSelected(person);
+    }
+  };
   // filtered list
   const filteredPeople =
     query === ""
@@ -30,15 +37,21 @@ export const ComboBox = () => {
         );
 
   return (
-    <div className="fixed top-16 w-72">
-      <Combobox value={selected} onChange={setSelected} multiple>
+    <div>
+      <Combobox
+        value={selected}
+        onChange={updateClient}
+        multiple={singleSelection ? false : true}
+      >
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
               placeholder="Choose clients to send messages to!"
               className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-              displayValue={(people) =>
-                people.map((person) => person.name).join(", ")
+              displayValue={
+                singleSelection
+                  ? (person) => person.name
+                  : (people) => people.map((person) => person.name).join(", ")
               }
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -99,6 +112,7 @@ export const ComboBox = () => {
           </Transition>
         </div>
       </Combobox>
+      <p>{selected.name ? selected.name : ""}</p>
     </div>
   );
 };
