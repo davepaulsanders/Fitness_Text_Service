@@ -1,12 +1,12 @@
 import React from "react";
 
-export const ClientEditForm = ({ client }) => {
+export const ClientEditForm = ({ selected, clients, getClients }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = document.querySelector("form");
     const data = Object.fromEntries(new FormData(form).entries());
 
-    // getting client id to add to form data object
+    // getting selected id to add to form data object
     data._id = form.getAttribute("data-id");
 
     const updateClient = await fetch("http://localhost:3001/api/clients", {
@@ -17,7 +17,13 @@ export const ClientEditForm = ({ client }) => {
 
     const newClientInfo = await updateClient.json();
     if (newClientInfo) {
-      document.querySelector(".submit-form").innerHTML = "Client updated!"
+      document.querySelector(".submit-form").innerHTML = "Client updated!";
+      // Update client in state without hitting server again
+      clients.map((client) => {
+        if (client._id === newClientInfo._id) {
+          client = newClientInfo;
+        }
+      });
     }
   };
 
@@ -25,7 +31,7 @@ export const ClientEditForm = ({ client }) => {
     <form
       className="rounded-md shadow p-4 w-full max-w-md mt-5 md:mt-0"
       onSubmit={handleSubmit}
-      data-id={client._id}
+      data-id={selected._id}
     >
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2">
@@ -34,7 +40,7 @@ export const ClientEditForm = ({ client }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
             type="text"
             name="firstName"
-            defaultValue={client.firstName}
+            defaultValue={selected.firstName}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -43,7 +49,7 @@ export const ClientEditForm = ({ client }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
             type="text"
             name="lastName"
-            defaultValue={client.lastName}
+            defaultValue={selected.lastName}
           />
         </div>
       </div>
@@ -54,7 +60,7 @@ export const ClientEditForm = ({ client }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner truncate mr-1"
             type="text"
             name="email"
-            defaultValue={client.email}
+            defaultValue={selected.email}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -63,7 +69,7 @@ export const ClientEditForm = ({ client }) => {
             className="form-input border border-black rounded-md py-2 shadow-inne ml-1"
             type="text"
             name="phoneNumber"
-            defaultValue={client.phoneNumber}
+            defaultValue={selected.phoneNumber}
           />
         </div>
       </div>
@@ -73,7 +79,7 @@ export const ClientEditForm = ({ client }) => {
           className="form-input border border-black rounded-md py-2 shadow-inner w-full md:w-"
           type="text"
           name="weightLossGoals"
-          defaultValue={client.weightLossGoals}
+          defaultValue={selected.weightLossGoals}
         />
       </div>
       <div className="flex flex-col md:flex-row justify-between">
@@ -83,7 +89,7 @@ export const ClientEditForm = ({ client }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
             type="text"
             name="daysElapsed"
-            defaultValue={client.daysElapsed}
+            defaultValue={selected.daysElapsed}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -92,13 +98,13 @@ export const ClientEditForm = ({ client }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
             type="text"
             name="spendTotal"
-            defaultValue={client.spendTotal}
+            defaultValue={selected.spendTotal}
           />
         </div>
       </div>
       <button
         type="submit"
-        className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
+        className=" bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
       >
         Update Client
       </button>
