@@ -4,7 +4,7 @@ import { ClientEditForm } from "../../components/ClientEditForm/ClientEditForm";
 export const EditClients = () => {
   const [selected, setSelected] = useState([]);
   const [clients, setClients] = useState();
-
+  
   useEffect(() => {
     getClients();
   }, []);
@@ -42,7 +42,7 @@ export const EditClients = () => {
           />
         </svg>
       </div>
-      <ClientEditForm client={selected}/>
+      <ClientEditForm client={selected} />
     </div>
   );
 };

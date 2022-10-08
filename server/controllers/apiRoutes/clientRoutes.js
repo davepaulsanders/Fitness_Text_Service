@@ -10,4 +10,17 @@ router.get("/", async (req, res) => {
     console.log(err);
   }
 });
+
+router.put("/", async (req, res) => {
+  try {
+    const client = await Client.findOneAndUpdate(
+      { _id: req.body._id },
+      req.body,
+      { new: true }
+    );
+    res.send(client);
+  } catch (err) {
+    console.log(err);
+  }
+});
 module.exports = router;

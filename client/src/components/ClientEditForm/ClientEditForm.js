@@ -1,15 +1,40 @@
 import React from "react";
 
 export const ClientEditForm = ({ client }) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = document.querySelector("form");
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    // getting client id to add to form data object
+    data._id = form.getAttribute("data-id");
+
+    const updateClient = await fetch("http://localhost:3001/api/clients", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const newClientInfo = await updateClient.json();
+    if (newClientInfo) {
+      document.querySelector(".submit-form").innerHTML = "Client updated!"
+    }
+  };
+
   return (
-    <div className="rounded-md shadow p-4 w-full max-w-md mt-5 md:mt-0">
+    <form
+      className="rounded-md shadow p-4 w-full max-w-md mt-5 md:mt-0"
+      onSubmit={handleSubmit}
+      data-id={client._id}
+    >
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2">
           <label className="text-left mb-1">First Name</label>
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
             type="text"
-            value={client.firstName}
+            name="firstName"
+            defaultValue={client.firstName}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -17,7 +42,8 @@ export const ClientEditForm = ({ client }) => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
             type="text"
-            value={client.lastName}
+            name="lastName"
+            defaultValue={client.lastName}
           />
         </div>
       </div>
@@ -27,7 +53,8 @@ export const ClientEditForm = ({ client }) => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner truncate mr-1"
             type="text"
-            value={client.email}
+            name="email"
+            defaultValue={client.email}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -35,7 +62,8 @@ export const ClientEditForm = ({ client }) => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inne ml-1"
             type="text"
-            value={client.phoneNumber}
+            name="phoneNumber"
+            defaultValue={client.phoneNumber}
           />
         </div>
       </div>
@@ -44,7 +72,8 @@ export const ClientEditForm = ({ client }) => {
         <textarea
           className="form-input border border-black rounded-md py-2 shadow-inner w-full md:w-"
           type="text"
-          value={client.weightLossGoals}
+          name="weightLossGoals"
+          defaultValue={client.weightLossGoals}
         />
       </div>
       <div className="flex flex-col md:flex-row justify-between">
@@ -53,7 +82,8 @@ export const ClientEditForm = ({ client }) => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
             type="text"
-            value={client.daysElapsed}
+            name="daysElapsed"
+            defaultValue={client.daysElapsed}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -61,13 +91,17 @@ export const ClientEditForm = ({ client }) => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
             type="text"
-            value={client.spendTotal}
+            name="spendTotal"
+            defaultValue={client.spendTotal}
           />
         </div>
       </div>
-      <button className="bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md">
+      <button
+        type="submit"
+        className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
+      >
         Update Client
       </button>
-    </div>
+    </form>
   );
 };
