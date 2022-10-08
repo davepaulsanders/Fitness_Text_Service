@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ClientEditForm = () => {
+export const ClientEditForm = ({ client }) => {
   return (
     <div className="rounded-md p-6 shadow w-11/12 md:w-7/12 lg:w-5/12 xl:w-4/12 mt-5 md:mt-0">
       <div className="flex flex-col md:flex-row justify-around">
@@ -9,6 +9,7 @@ export const ClientEditForm = () => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner"
             type="text"
+            value={client.firstName}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -16,6 +17,7 @@ export const ClientEditForm = () => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner"
             type="text"
+            value={client.lastName}
           />
         </div>
       </div>
@@ -23,8 +25,9 @@ export const ClientEditForm = () => {
         <div className="flex flex-col mb-2">
           <label className="text-left mb-1">Email</label>
           <input
-            className="form-input border border-black rounded-md py-2 shadow-inner"
+            className="form-input border border-black rounded-md py-2 shadow-inner truncate"
             type="text"
+            value={client.email}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -32,6 +35,7 @@ export const ClientEditForm = () => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner"
             type="text"
+            value={client.phoneNumber}
           />
         </div>
       </div>
@@ -40,6 +44,7 @@ export const ClientEditForm = () => {
         <textarea
           className="form-input border border-black rounded-md py-2 shadow-inner w-full"
           type="text"
+          value={client.weightLossGoals}
         />
       </div>
       <div className="flex flex-col md:flex-row justify-around">
@@ -48,6 +53,7 @@ export const ClientEditForm = () => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner"
             type="text"
+            value={client.daysElapsed}
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -55,6 +61,7 @@ export const ClientEditForm = () => {
           <input
             className="form-input border border-black rounded-md py-2 shadow-inner"
             type="text"
+            value={client.spendTotal}
           />
         </div>
       </div>

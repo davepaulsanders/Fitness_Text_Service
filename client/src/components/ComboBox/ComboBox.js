@@ -2,19 +2,7 @@ import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-const people = [
-  { id: 1, name: "Wade Cooper" },
-  { id: 2, name: "Arlene Mccoy" },
-  { id: 3, name: "Devon Webb" },
-  { id: 4, name: "Tom Cook" },
-  { id: 5, name: "Tanya Fox" },
-  { id: 6, name: "Hellen Schmidt" },
-];
-
-export const ComboBox = ({ singleSelection, clients }) => {
-  // selected options from list
-  const [selected, setSelected] = useState([]);
-
+export const ComboBox = ({ singleSelection, clients, selected, setSelected }) => {
   // state for autocomplete
   const [query, setQuery] = useState("");
   // const updateClient = (client) => {
@@ -95,7 +83,7 @@ export const ComboBox = ({ singleSelection, clients }) => {
                               selected ? "font-medium" : "font-normal"
                             }`}
                           >
-                            {`${client.firstName} ${client.lastName} - ${client.daysElapsed}`}
+                            {`${client.firstName} ${client.lastName}\u00A0\u00A0\u00A0\u00A0\u00A0☀${client.daysElapsed}`}
                           </span>
                           {selected ? (
                             <span

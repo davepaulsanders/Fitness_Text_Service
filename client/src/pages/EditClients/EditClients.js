@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { ComboBox } from "../../components/ComboBox/ComboBox";
 import { ClientEditForm } from "../../components/ClientEditForm/ClientEditForm";
 export const EditClients = () => {
+  const [selected, setSelected] = useState([]);
   const [clients, setClients] = useState();
+
   useEffect(() => {
     getClients();
   }, []);
@@ -19,7 +21,12 @@ export const EditClients = () => {
   return (
     <div className="w-full flex flex-col lg:flex-row items-center justify-around">
       <div className="flex items-center">
-        <ComboBox singleSelection={true} clients={clients} />
+        <ComboBox
+          singleSelection={true}
+          clients={clients}
+          selected={selected}
+          setSelected={setSelected}
+        />
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -35,7 +42,7 @@ export const EditClients = () => {
           />
         </svg>
       </div>
-      <ClientEditForm />
+      <ClientEditForm client={selected}/>
     </div>
   );
 };
