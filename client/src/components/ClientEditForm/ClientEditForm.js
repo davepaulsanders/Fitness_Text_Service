@@ -104,7 +104,7 @@ export const ClientEditForm = ({ selected, clients, getClients }) => {
       </div>
       <button
         type="submit"
-        className=" bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
+        className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
       >
         Update Client
       </button>
