@@ -31,4 +31,11 @@ router.post("/", async (req, res) => {
     console.log(err);
   }
 });
+router.delete("/", async (req, res) => {
+  try {
+    const client = await Client.deleteOne({ _id: req.body.id });
+  } catch (err) {
+    console.log(err);
+  }
+});
 module.exports = router;
