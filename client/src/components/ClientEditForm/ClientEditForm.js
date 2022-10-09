@@ -1,20 +1,27 @@
 import React from "react";
 
 export const ClientEditForm = ({ selected, clients, getClients }) => {
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = document.querySelector("form");
+    const submitButton = document.querySelector(".submit-form");
     const data = Object.fromEntries(new FormData(form).entries());
 
     // getting selected id to add to form data object
     data._id = form.getAttribute("data-id");
 
-    const updateClient = await fetch("http://localhost:3001/api/clients", {
+    if (form.hasAttribute("data-new")) {
+      createClient(data);
+    } else {
+      updateClient(data);
+    }
+  };
+  const updateClient = async (data) => {
+    await fetch("http://localhost:3001/api/clients", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-
     const newClientInfo = await updateClient.json();
     if (newClientInfo) {
       document.querySelector(".submit-form").innerHTML = "Client updated!";
@@ -24,6 +31,20 @@ export const ClientEditForm = ({ selected, clients, getClients }) => {
           client = newClientInfo;
         }
       });
+    }
+  };
+
+  const createClient = async (data) => {
+    const newClient = await fetch("http://localhost:3001/api/clients", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const newClientInfo = await newClient.json();
+    if (newClientInfo) {
+      document.querySelector(".submit-form").innerHTML = "Client added!";
+      clients.push(newClientInfo);
     }
   };
 

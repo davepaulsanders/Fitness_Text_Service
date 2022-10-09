@@ -23,4 +23,12 @@ router.put("/", async (req, res) => {
     console.log(err);
   }
 });
+router.post("/", async (req, res) => {
+  try {
+    const client = await Client.create(req.body);
+    res.send(client);
+  } catch (err) {
+    console.log(err);
+  }
+});
 module.exports = router;

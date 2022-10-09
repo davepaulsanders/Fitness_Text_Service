@@ -18,6 +18,13 @@ export const EditClients = () => {
       console.log(err);
     }
   };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    document.querySelector(".submit-form").innerHTML = "Create client";
+    document.querySelector("form").setAttribute("data-new", "true");
+  };
+  
   return (
     <div className="w-full flex flex-col lg:flex-row items-center justify-around">
       <div className="flex items-center">
@@ -34,6 +41,7 @@ export const EditClients = () => {
           strokeWidth={2}
           stroke="currentColor"
           className="w-8 h-8 ml-4 pt-2 hover:cursor-pointer"
+          onClick={handleClick}
         >
           <path
             strokeLinecap="round"
@@ -42,7 +50,11 @@ export const EditClients = () => {
           />
         </svg>
       </div>
-      <ClientEditForm selected={selected} clients={clients} setClients={setClients} />
+      <ClientEditForm
+        selected={selected}
+        clients={clients}
+        setClients={setClients}
+      />
     </div>
   );
 };
