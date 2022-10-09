@@ -57,13 +57,35 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
     }
   };
 
+  const handleDelete = async (e) => {
+    e.preventDefault();
+
+    const id = document.querySelector("form").getAttribute("data-id");
+    const deleteResponse = window.confirm(
+      "Are you sure you want to delete this client?"
+    );
+    if (deleteResponse) {
+      const deleteClient = await fetch("http://localhost:3001/api/clients", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+
+      const clientIndex = clients.findIndex((client) => {
+        return client._id === id;
+      });
+
+      clients.splice(clientIndex, 1);
+    }
+  };
+
   return (
     <form
       className="rounded-md shadow p-4 w-full max-w-md mt-5 md:mt-0"
       onSubmit={handleSubmit}
       data-id={selected._id}
     >
-        <h2 className="text-left client-action-message text-3xl pt-2 pb-5"></h2>
+      <h2 className="text-left client-action-message text-3xl pt-2 pb-5"></h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2">
           <label className="text-left mb-1">First Name</label>
