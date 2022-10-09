@@ -4,10 +4,9 @@ import { ClientEditForm } from "../../components/ClientEditForm/ClientEditForm";
 export const EditClients = () => {
   const [selected, setSelected] = useState([]);
   const [clients, setClients] = useState();
-
   useEffect(() => {
     getClients();
-  }, []);
+  }, [clients]);
 
   const getClients = async () => {
     try {
@@ -21,10 +20,17 @@ export const EditClients = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    document.querySelector(".submit-form").innerHTML = "Create client";
+
     document.querySelector("form").setAttribute("data-new", "true");
+    // resetting form with selected variable
+    document.querySelector("form").reset(selected);
+    document.querySelector("textarea").innerHTML = "";
+    setSelected([]);
+
+    document.querySelector(".client-action-message").innerHTML =
+      "Creating new client";
   };
-  
+
   return (
     <div className="w-full flex flex-col lg:flex-row items-center justify-around">
       <div className="flex items-center">
@@ -52,6 +58,7 @@ export const EditClients = () => {
       </div>
       <ClientEditForm
         selected={selected}
+        setSelected={setSelected}
         clients={clients}
         setClients={setClients}
       />

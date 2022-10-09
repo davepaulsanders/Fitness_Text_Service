@@ -15,9 +15,14 @@ export const ComboBox = ({
     e.preventDefault();
 
     if (
-      document.querySelector(".submit-form").innerHTML === "Client updated!"
+      document.querySelector(".submit-form-info").innerHTML ===
+      "Client updated!"
     ) {
-      document.querySelector(".submit-form").innerHTML = "Update client";
+      document.querySelector(".submit-form-info").innerHTML = "";
+    } else {
+      document.querySelector("form").removeAttribute("data-new", "true");
+      document.querySelector(".client-action-message").innerHTML =
+        "Updating client";
     }
   };
   // filtered list

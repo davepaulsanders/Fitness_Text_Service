@@ -1,10 +1,10 @@
 import React from "react";
 
-export const ClientEditForm = ({ selected, clients, getClients }) => {
+export const ClientEditForm = ({ selected, setSelected, clients }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = document.querySelector("form");
-    const submitButton = document.querySelector(".submit-form");
+    const submitButton = document.querySelector(".submit-form-info");
     const data = Object.fromEntries(new FormData(form).entries());
 
     // getting selected id to add to form data object
@@ -16,21 +16,30 @@ export const ClientEditForm = ({ selected, clients, getClients }) => {
       updateClient(data);
     }
   };
+
   const updateClient = async (data) => {
-    await fetch("http://localhost:3001/api/clients", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    const newClientInfo = await updateClient.json();
-    if (newClientInfo) {
-      document.querySelector(".submit-form").innerHTML = "Client updated!";
-      // Update client in state without hitting server again
-      clients.map((client) => {
-        if (client._id === newClientInfo._id) {
-          client = newClientInfo;
-        }
+    try {
+      const updatedClient = await fetch("http://localhost:3001/api/clients", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
+
+      const updatedClientInfo = await updatedClient.json();
+
+      if (updatedClientInfo) {
+        document.querySelector(".submit-form-info").innerHTML =
+          "Client updated!";
+        // Update client in state without hitting server again
+        clients.map((client) =>
+          client._id === updatedClientInfo
+            ? (client = updatedClientInfo)
+            : client
+        );
+        setSelected(updatedClientInfo);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -43,7 +52,7 @@ export const ClientEditForm = ({ selected, clients, getClients }) => {
 
     const newClientInfo = await newClient.json();
     if (newClientInfo) {
-      document.querySelector(".submit-form").innerHTML = "Client added!";
+      document.querySelector(".submit-form-info").innerHTML = "Client added!";
       clients.push(newClientInfo);
     }
   };
@@ -54,6 +63,7 @@ export const ClientEditForm = ({ selected, clients, getClients }) => {
       onSubmit={handleSubmit}
       data-id={selected._id}
     >
+        <h2 className="text-left client-action-message text-3xl pt-2 pb-5"></h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2">
           <label className="text-left mb-1">First Name</label>
@@ -123,11 +133,12 @@ export const ClientEditForm = ({ selected, clients, getClients }) => {
           />
         </div>
       </div>
+      <p className="submit-form-info"></p>
       <button
         type="submit"
-        className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
+        className="bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
       >
-        Update Client
+        Submit
       </button>
     </form>
   );
