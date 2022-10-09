@@ -61,21 +61,32 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
     e.preventDefault();
 
     const id = document.querySelector("form").getAttribute("data-id");
+
     const deleteResponse = window.confirm(
       "Are you sure you want to delete this client?"
     );
     if (deleteResponse) {
-      const deleteClient = await fetch("http://localhost:3001/api/clients", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
-      });
+      try {
+        const deleteClient = await fetch("http://localhost:3001/api/clients", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
 
-      const clientIndex = clients.findIndex((client) => {
-        return client._id === id;
-      });
-
-      clients.splice(clientIndex, 1);
+        if (deleteClient) {
+          document.querySelector(".submit-form-info").innerHTML =
+            "Client deleted";
+          clients.forEach((client, i) => {
+            if (client._id === id) {
+              clients.splice(i, 1);
+              return;
+            }
+          });
+          setSelected([]);
+        }
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -161,7 +172,7 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
           type="submit"
           className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
         >
-          Update Client
+          Submit
         </button>
         <svg
           xmlns="http://www.w3.org/2000/svg"

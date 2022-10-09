@@ -13,17 +13,7 @@ export const ComboBox = ({
 
   const checkClientButton = (e) => {
     e.preventDefault();
-
-    if (
-      document.querySelector(".submit-form-info").innerHTML ===
-      "Client updated!"
-    ) {
-      document.querySelector(".submit-form-info").innerHTML = "";
-    } else {
-      document.querySelector("form").removeAttribute("data-new", "true");
-      document.querySelector(".client-action-message").innerHTML =
-        "Updating client";
-    }
+    document.querySelector(".submit-form-info").innerHTML = "";
   };
   // filtered list
   const filteredPeople =
