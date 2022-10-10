@@ -9,17 +9,16 @@ export const ClientEditForm = ({
 }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = document.querySelector("form");
     const submitButton = document.querySelector(".submit-form-info");
-    const data = Object.fromEntries(new FormData(form).entries());
-
+    const form = document.querySelector("form");
     // getting selected id to add to form data object
-    data._id = form.getAttribute("data-id");
+    const selectedWithId = { ...selected };
+    selectedWithId._id = form.getAttribute("data-id");
 
     if (form.hasAttribute("data-new")) {
-      createClient(data);
+      createClient(selectedWithId);
     } else {
-      updateClient(data);
+      updateClient(selectedWithId);
     }
   };
 
