@@ -10,7 +10,7 @@ export const ComboBox = ({
 }) => {
   // state for autocomplete
   const [query, setQuery] = useState("");
-
+  console.log(clients);
   const checkClientButton = (e) => {
     e.preventDefault();
     document.querySelector(".submit-form-info").innerHTML = "";
@@ -25,6 +25,7 @@ export const ComboBox = ({
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
+
   if (clients) {
     return (
       <div className="w-full">
@@ -43,9 +44,7 @@ export const ComboBox = ({
                 }
                 className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                 displayValue={(selected) =>
-                  selected.length === 0
-                    ? null
-                    : `${selected.firstName} ${selected.lastName}`
+                  `${selected.firstName} ${selected.lastName}`
                 }
                 onChange={(event) => setQuery(event.target.value)}
               />

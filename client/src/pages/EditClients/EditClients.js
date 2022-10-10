@@ -2,11 +2,20 @@ import React, { useState, useEffect } from "react";
 import { ComboBox } from "../../components/ComboBox/ComboBox";
 import { ClientEditForm } from "../../components/ClientEditForm/ClientEditForm";
 export const EditClients = () => {
-  const [selected, setSelected] = useState([]);
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    weightLossGoals: "",
+    daysElapsed: "",
+    spendTotal: "",
+  };
+  const [selected, setSelected] = useState(initialState);
   const [clients, setClients] = useState();
   useEffect(() => {
     getClients();
-  }, [clients]);
+  }, []);
 
   const getClients = async () => {
     try {
@@ -23,10 +32,7 @@ export const EditClients = () => {
 
     document.querySelector("form").setAttribute("data-new", "true");
     // resetting form with selected variable
-    document.querySelector("form").reset(selected);
-    document.querySelector("textarea").innerHTML = "";
-    setSelected([]);
-
+    setSelected(initialState);
     document.querySelector(".client-action-message").innerHTML =
       "Creating new client";
   };
@@ -61,6 +67,7 @@ export const EditClients = () => {
         setSelected={setSelected}
         clients={clients}
         setClients={setClients}
+        initialState={initialState}
       />
     </div>
   );

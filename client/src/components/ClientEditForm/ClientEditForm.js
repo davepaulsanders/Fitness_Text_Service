@@ -1,6 +1,12 @@
 import React from "react";
 
-export const ClientEditForm = ({ selected, setSelected, clients }) => {
+export const ClientEditForm = ({
+  selected,
+  setSelected,
+  clients,
+  setClients,
+  initialState,
+}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = document.querySelector("form");
@@ -31,12 +37,14 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
         document.querySelector(".submit-form-info").innerHTML =
           "Client updated!";
         // Update client in state without hitting server again
-        clients.map((client) =>
-          client._id === updatedClientInfo
+        const tempClientsList = [...clients];
+        const newClientsList = tempClientsList.map((client) =>
+          client._id === updatedClientInfo._id
             ? (client = updatedClientInfo)
             : client
         );
         setSelected(updatedClientInfo);
+        setClients(newClientsList);
       }
     } catch (err) {
       console.log(err);
@@ -53,13 +61,14 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
     const newClientInfo = await newClient.json();
     if (newClientInfo) {
       document.querySelector(".submit-form-info").innerHTML = "Client added!";
-      clients.push(newClientInfo);
+      setClients((clients) => [...clients, newClientInfo]);
     }
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
 
+    // id of specific client
     const id = document.querySelector("form").getAttribute("data-id");
 
     const deleteResponse = window.confirm(
@@ -76,13 +85,12 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
         if (deleteClient) {
           document.querySelector(".submit-form-info").innerHTML =
             "Client deleted";
-          clients.forEach((client, i) => {
-            if (client._id === id) {
-              clients.splice(i, 1);
-              return;
-            }
-          });
-          setSelected([]);
+          const oldClientsList = [...clients];
+          const removedClientList = oldClientsList.filter(
+            (client) => client._id !== id
+          );
+          setClients(removedClientList);
+          setSelected(initialState);
         }
       } catch (err) {
         console.log(err);
@@ -104,7 +112,10 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
             type="text"
             name="firstName"
-            defaultValue={selected.firstName}
+            value={selected.firstName}
+            onChange={(e) =>
+              setSelected({ ...selected, firstName: e.target.value })
+            }
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -113,7 +124,10 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
             type="text"
             name="lastName"
-            defaultValue={selected.lastName}
+            value={selected.lastName}
+            onChange={(e) =>
+              setSelected({ ...selected, lastName: e.target.value })
+            }
           />
         </div>
       </div>
@@ -124,7 +138,10 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner truncate mr-1"
             type="text"
             name="email"
-            defaultValue={selected.email}
+            value={selected.email}
+            onChange={(e) =>
+              setSelected({ ...selected, email: e.target.value })
+            }
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -133,7 +150,10 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
             className="form-input border border-black rounded-md py-2 shadow-inne ml-1"
             type="text"
             name="phoneNumber"
-            defaultValue={selected.phoneNumber}
+            value={selected.phoneNumber}
+            onChange={(e) =>
+              setSelected({ ...selected, phoneNumber: e.target.value })
+            }
           />
         </div>
       </div>
@@ -143,7 +163,10 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
           className="form-input border border-black rounded-md py-2 shadow-inner w-full md:w-"
           type="text"
           name="weightLossGoals"
-          defaultValue={selected.weightLossGoals}
+          value={selected.weightLossGoals}
+          onChange={(e) =>
+            setSelected({ ...selected, weightLossGoals: e.target.value })
+          }
         />
       </div>
       <div className="flex flex-col md:flex-row justify-between">
@@ -153,7 +176,10 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
             type="text"
             name="daysElapsed"
-            defaultValue={selected.daysElapsed}
+            value={selected.daysElapsed}
+            onChange={(e) =>
+              setSelected({ ...selected, daysElapsed: e.target.value })
+            }
           />
         </div>
         <div className="flex flex-col mb-5">
@@ -162,7 +188,10 @@ export const ClientEditForm = ({ selected, setSelected, clients }) => {
             className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
             type="text"
             name="spendTotal"
-            defaultValue={selected.spendTotal}
+            value={selected.spendTotal}
+            onChange={(e) =>
+              setSelected({ ...selected, spendTotal: e.target.value })
+            }
           />
         </div>
       </div>
