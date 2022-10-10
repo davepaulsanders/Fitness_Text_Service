@@ -26,7 +26,7 @@ export const EditClients = () => {
       console.log(err);
     }
   };
-
+ 
   const handleClick = (e) => {
     e.preventDefault();
 
@@ -45,6 +45,7 @@ export const EditClients = () => {
           clients={clients}
           selected={selected}
           setSelected={setSelected}
+          
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

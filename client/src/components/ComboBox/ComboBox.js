@@ -10,11 +10,14 @@ export const ComboBox = ({
 }) => {
   // state for autocomplete
   const [query, setQuery] = useState("");
-  console.log(clients);
+
   const checkClientButton = (e) => {
     e.preventDefault();
     document.querySelector(".submit-form-info").innerHTML = "";
+    document.querySelector(".client-action-message").innerHTML =
+      "Updating client";
   };
+
   // filtered list
   const filteredPeople =
     query === ""
