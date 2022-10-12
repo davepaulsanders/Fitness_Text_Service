@@ -10,17 +10,10 @@ function App() {
   if (loggedIn) {
     return (
       <div className="App flex flex-col justify-center items-center">
+        {loggedIn ? <Header /> : null}
         <Router>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <Header />
-                  <Landing />
-                </>
-              }
-            />
+            <Route path="/" element={<Landing />} />
             <Route path="/clients" element={<EditClients />} />
           </Routes>
         </Router>

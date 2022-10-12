@@ -26,7 +26,7 @@ export const EditClients = () => {
       console.log(err);
     }
   };
- 
+
   const handleClick = (e) => {
     e.preventDefault();
 
@@ -35,17 +35,17 @@ export const EditClients = () => {
     setSelected(initialState);
     document.querySelector(".client-action-message").innerHTML =
       "Creating new client";
+    document.querySelector(".submit-form").style.display = "block";
   };
 
   return (
-    <div className="w-full flex flex-col lg:flex-row items-center justify-around">
+    <div className="w-full flex flex-col lg:flex-row items-center justify-around mt-40">
       <div className="flex items-center">
         <ComboBox
           singleSelection={true}
           clients={clients}
           selected={selected}
           setSelected={setSelected}
-          
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

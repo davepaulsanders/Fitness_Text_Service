@@ -22,6 +22,10 @@ const clientSchema = new Schema({
     type: "String",
     required: "true",
     unique: true,
+    match: [
+      /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+      "Please use valid phone number",
+    ],
   },
   weightLossGoals: {
     type: "String",

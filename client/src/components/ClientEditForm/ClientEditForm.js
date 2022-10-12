@@ -1,4 +1,6 @@
 import React from "react";
+import "./ClientEditForm.css"
+const emptyValidation = require("../../utils/emptyValidation");
 
 export const ClientEditForm = ({
   selected,
@@ -16,13 +18,17 @@ export const ClientEditForm = ({
     selectedWithId._id = form.getAttribute("data-id");
 
     if (form.hasAttribute("data-new")) {
-      createClient(selectedWithId);
+      createClient(selected);
     } else {
       updateClient(selectedWithId);
     }
   };
 
   const updateClient = async (data) => {
+    const emptyCheck = emptyValidation(data);
+    if (emptyCheck === false) {
+      return;
+    }
     try {
       const updatedClient = await fetch("http://localhost:3001/api/clients", {
         method: "PUT",
@@ -31,8 +37,13 @@ export const ClientEditForm = ({
       });
 
       const updatedClientInfo = await updatedClient.json();
-
-      if (updatedClientInfo) {
+      if (updatedClientInfo.errors) {
+        document.querySelector(".submit-form-info").style.color = "red";
+        document.querySelector(".submit-form-info").innerHTML = `${
+          Object.values(updatedClientInfo.errors)[0].message
+        }`;
+      } else {
+        document.querySelector(".submit-form-info").color = "green";
         document.querySelector(".submit-form-info").innerHTML =
           "Client updated!";
         // Update client in state without hitting server again
@@ -51,6 +62,10 @@ export const ClientEditForm = ({
   };
 
   const createClient = async (data) => {
+    const emptyCheck = emptyValidation(data);
+    if (emptyCheck === false) {
+      return;
+    }
     const newClient = await fetch("http://localhost:3001/api/clients", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -58,7 +73,12 @@ export const ClientEditForm = ({
     });
 
     const newClientInfo = await newClient.json();
-    if (newClientInfo) {
+    if (newClientInfo.errors) {
+      document.querySelector(".submit-form-info").style.color = "red";
+      document.querySelector(".submit-form-info").innerHTML = `${
+        Object.values(newClientInfo.errors)[0].message
+      }`;
+    } else {
       document.querySelector(".submit-form-info").innerHTML = "Client added!";
       setClients((clients) => [...clients, newClientInfo]);
     }
@@ -66,7 +86,6 @@ export const ClientEditForm = ({
 
   const handleDelete = async (e) => {
     e.preventDefault();
-
     // id of specific client
     const id = document.querySelector("form").getAttribute("data-id");
 
@@ -81,7 +100,12 @@ export const ClientEditForm = ({
           body: JSON.stringify({ id }),
         });
 
-        if (deleteClient) {
+        if (deleteClient.errors) {
+          document.querySelector(".submit-form-info").style.color = "red";
+          document.querySelector(".submit-form-info").innerHTML = `${
+            Object.values(deleteClient.errors)[0].message
+          }`;
+        } else {
           document.querySelector(".submit-form-info").innerHTML =
             "Client deleted";
           const oldClientsList = [...clients];
@@ -194,7 +218,7 @@ export const ClientEditForm = ({
           />
         </div>
       </div>
-      <p className="submit-form-info"></p>
+      <p className="submit-form-info mb-4"></p>
       <div className="flex items-center">
         <button
           type="submit"
@@ -208,7 +232,7 @@ export const ClientEditForm = ({
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6 ml-3"
+          className="delete w-6 h-6 ml-3"
           onClick={handleDelete}
         >
           <path

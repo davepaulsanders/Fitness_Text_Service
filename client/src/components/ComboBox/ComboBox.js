@@ -16,6 +16,8 @@ export const ComboBox = ({
     document.querySelector(".submit-form-info").innerHTML = "";
     document.querySelector(".client-action-message").innerHTML =
       "Updating client";
+    document.querySelector(".submit-form").style.display = "block";
+    document.querySelector(".delete").style.display = "block";
   };
 
   // filtered list
