@@ -1,12 +1,42 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "./components/Header/Header";
 import { Login } from "./components/Login/Login";
 import { Landing } from "./pages/Landing/Landing";
 import { EditClients } from "./pages/EditClients/EditClients";
+import { SendText } from "./pages/SendText/SendText";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    weightLossGoals: "",
+    daysElapsed: "",
+    spendTotal: "",
+  };
   const [loggedIn, setLoggedIn] = useState(true);
+  // selected client for client edit
+  const [selected, setSelected] = useState(initialState);
+  // selected clients for message send
+  const [selectedGroup, setSelectedGroup] = useState([]);
+  const [clients, setClients] = useState();
+  useEffect(() => {
+    getClients();
+  }, []);
+
+  const getClients = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/clients");
+      const clients = await response.json();
+      setClients(clients);
+      setSelected(clients[0]);
+      setSelectedGroup([clients[0], clients[1]]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   if (loggedIn) {
     return (
       <div className="App flex flex-col justify-center items-center">
@@ -14,7 +44,27 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/clients" element={<EditClients />} />
+            <Route
+              path="/send"
+              element={
+                <SendText
+                  clients={clients}
+                  selectedGroup={selectedGroup}
+                  setSelectedGroup={setSelectedGroup}
+                />
+              }
+            />
+            <Route
+              path="/clients"
+              element={
+                <EditClients
+                  clients={clients}
+                  selected={selected}
+                  setSelected={setSelected}
+                  initialState={initialState}
+                />
+              }
+            />
           </Routes>
         </Router>
       </div>

@@ -7,11 +7,11 @@ export const ComboBox = ({
   clients,
   selected,
   setSelected,
-  initialState,
+  selectedGroup,
+  setSelectedGroup,
 }) => {
   // state for autocomplete
   const [query, setQuery] = useState("");
-
   const checkClientButton = (e) => {
     e.preventDefault();
     document.querySelector(".submit-form-info").innerHTML = "";
@@ -31,31 +31,41 @@ export const ComboBox = ({
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
-
+        
   if (clients) {
     return (
       <div className="w-full">
         <Combobox
-          value={selected}
-          onChange={setSelected}
+          value={singleSelection === false ? selectedGroup : selected}
+          onChange={singleSelection === false ? setSelectedGroup : setSelected}
           multiple={singleSelection ? false : true}
         >
           <div className="relative mt-1">
             <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
-              <Combobox.Input
-                placeholder={
-                  singleSelection
-                    ? "Choose a client to edit"
-                    : "Choose clients to send messages to!"
-                }
-                className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                displayValue={(selected) =>
-                  selected.firstName !== ""
-                    ? `${selected.firstName} ${selected.lastName}\u00A0\u00A0\u00A0\u00A0\u00A0 ☀${selected.daysElapsed}`
-                    : null
-                }
-                onChange={(event) => setQuery(event.target.value)}
-              />
+              {singleSelection === true ? (
+                <Combobox.Input
+                  placeholder="Choose a client to edit"
+                  className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+                  displayValue={(selected) =>
+                    selected.firstName !== ""
+                      ? `${selected.firstName} ${selected.lastName}\u00A0\u00A0\u00A0\u00A0\u00A0 ☀${selected.daysElapsed}`
+                      : null
+                  }
+                  onChange={(event) => setQuery(event.target.value)}
+                />
+              ) : (
+                <Combobox.Input
+                  placeholder="Choose clients to send messages to!"
+                  className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+                  displayValue={(people) =>
+                    selectedGroup
+                    .map((person) => person.firstName + " " + person.lastName)
+                    .join(", ")
+                  }
+                  onChange={(event) => setQuery(event.target.value)}
+                />
+              )}
+
               <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
                 <ChevronUpDownIcon
                   className="h-5 w-5 text-gray-400"

@@ -1,33 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { ComboBox } from "../../components/ComboBox/ComboBox";
 import { ClientEditForm } from "../../components/ClientEditForm/ClientEditForm";
-export const EditClients = () => {
-  const initialState = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    weightLossGoals: "",
-    daysElapsed: "",
-    spendTotal: "",
-  };
-  const [selected, setSelected] = useState(initialState);
-  const [clients, setClients] = useState();
-  useEffect(() => {
-    getClients();
-  }, []);
-
-  const getClients = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/clients");
-      const clients = await response.json();
-      setClients(clients);
-      setSelected(clients[0]);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+import "./EditClients.css";
+export const EditClients = ({
+  clients,
+  setClients,
+  selected,
+  setSelected,
+  initialState,
+}) => {
   const handleClick = (e) => {
     e.preventDefault();
 
@@ -42,7 +23,7 @@ export const EditClients = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className="edit-client w-full flex flex-col items-center justify-center">
       <div className="flex items-center mb-10">
         <ComboBox
           singleSelection={true}
