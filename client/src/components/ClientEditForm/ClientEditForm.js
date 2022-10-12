@@ -79,6 +79,7 @@ export const ClientEditForm = ({
         Object.values(newClientInfo.errors)[0].message
       }`;
     } else {
+      document.querySelector(".submit-form-info").style.color = "green";
       document.querySelector(".submit-form-info").innerHTML = "Client added!";
       setClients((clients) => [...clients, newClientInfo]);
     }
@@ -106,6 +107,7 @@ export const ClientEditForm = ({
             Object.values(deleteClient.errors)[0].message
           }`;
         } else {
+          document.querySelector(".submit-form-info").style.color = "green";
           document.querySelector(".submit-form-info").innerHTML =
             "Client deleted";
           const oldClientsList = [...clients];
