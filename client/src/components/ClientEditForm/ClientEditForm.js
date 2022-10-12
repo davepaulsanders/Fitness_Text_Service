@@ -1,5 +1,5 @@
 import React from "react";
-import "./ClientEditForm.css"
+import "./ClientEditForm.css";
 const emptyValidation = require("../../utils/emptyValidation");
 
 export const ClientEditForm = ({
@@ -88,12 +88,18 @@ export const ClientEditForm = ({
   const handleDelete = async (e) => {
     e.preventDefault();
     // id of specific client
+
+    document.querySelector(".delete-client").style.display = "block";
+    document.querySelector(".cancel-delete-client").style.display = "block";
+    document.querySelector(".submit-form").style.display = "none";
+    document.querySelector(".delete").style.display = "none";
+  };
+
+  const deleteClientConfirm = async (e) => {
+    e.preventDefault();
     const id = document.querySelector("form").getAttribute("data-id");
 
-    const deleteResponse = window.confirm(
-      "Are you sure you want to delete this client?"
-    );
-    if (deleteResponse) {
+    if (e.target.innerHTML === "Delete") {
       try {
         const deleteClient = await fetch("http://localhost:3001/api/clients", {
           method: "DELETE",
@@ -115,12 +121,16 @@ export const ClientEditForm = ({
             (client) => client._id !== id
           );
           setClients(removedClientList);
-          setSelected(initialState);
+          setSelected(clients[0]);
         }
       } catch (err) {
         console.log(err);
       }
     }
+    document.querySelector(".delete-client").style.display = "none";
+    document.querySelector(".cancel-delete-client").style.display = "none";
+    document.querySelector(".submit-form").style.display = "block";
+    document.querySelector(".delete").style.display = "block";
   };
 
   return (
@@ -129,7 +139,9 @@ export const ClientEditForm = ({
       onSubmit={handleSubmit}
       data-id={selected._id}
     >
-      <h2 className="text-left client-action-message text-3xl pt-2 pb-5">Updating Client</h2>
+      <h2 className="text-left client-action-message text-3xl pt-2 pb-5">
+        Updating Client
+      </h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2">
           <label className="text-left mb-1">First Name</label>
@@ -227,6 +239,18 @@ export const ClientEditForm = ({
           className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full"
         >
           Submit
+        </button>
+        <button
+          className="delete-client bg-red-500 text-xl py-2 w-full"
+          onClick={deleteClientConfirm}
+        >
+          Delete
+        </button>
+        <button
+          className="cancel-delete-client bg-slate-500 text-xl py-2 w-full"
+          onClick={deleteClientConfirm}
+        >
+          Cancel
         </button>
         <svg
           xmlns="http://www.w3.org/2000/svg"

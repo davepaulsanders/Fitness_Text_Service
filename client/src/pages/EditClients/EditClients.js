@@ -50,6 +50,7 @@ export const EditClients = () => {
           clients={clients}
           selected={selected}
           setSelected={setSelected}
+          initialState={initialState}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"
