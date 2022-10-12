@@ -123,16 +123,16 @@ export const ClientEditForm = ({
 
   return (
     <form
-      className="rounded-md shadow p-4 w-full max-w-md mt-5 md:mt-0"
+      className="rounded-md shadow p-4 w-full max-w-md mt-5 md:mt-0 mb-20"
       onSubmit={handleSubmit}
       data-id={selected._id}
     >
-      <h2 className="text-left client-action-message text-3xl pt-2 pb-5"></h2>
+      <h2 className="text-left client-action-message text-3xl pt-2 pb-5">Updating Client</h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2">
           <label className="text-left mb-1">First Name</label>
           <input
-            className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
+            className="form-input py-2 shadow-inner mr-1"
             type="text"
             name="firstName"
             value={selected.firstName}
@@ -144,7 +144,7 @@ export const ClientEditForm = ({
         <div className="flex flex-col mb-5">
           <label className="text-left mb-1">Last Name</label>
           <input
-            className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
+            className="form-input py-2 shadow-inner ml-1"
             type="text"
             name="lastName"
             value={selected.lastName}
@@ -158,7 +158,7 @@ export const ClientEditForm = ({
         <div className="flex flex-col mb-2">
           <label className="text-left mb-1">Email</label>
           <input
-            className="form-input border border-black rounded-md py-2 shadow-inner truncate mr-1"
+            className="form-input py-2 shadow-inner truncate mr-1"
             type="text"
             name="email"
             value={selected.email}
@@ -170,7 +170,7 @@ export const ClientEditForm = ({
         <div className="flex flex-col mb-5">
           <label className="text-left mb-1">Phone</label>
           <input
-            className="form-input border border-black rounded-md py-2 shadow-inne ml-1"
+            className="form-input py-2 shadow-inner ml-1"
             type="text"
             name="phoneNumber"
             value={selected.phoneNumber}
@@ -183,7 +183,7 @@ export const ClientEditForm = ({
       <div className="flex flex-col justify-center items-center mb-2">
         <label className="text-left mb-1">Weight Loss Goals</label>
         <textarea
-          className="form-input border border-black rounded-md py-2 shadow-inner w-full md:w-"
+          className="form-input py-2 shadow-inner w-full"
           type="text"
           name="weightLossGoals"
           value={selected.weightLossGoals}
@@ -196,7 +196,7 @@ export const ClientEditForm = ({
         <div className="flex flex-col mb-5">
           <label className="text-left mb-1">Days Elapsed</label>
           <input
-            className="form-input border border-black rounded-md py-2 shadow-inner mr-1"
+            className="form-input py-2 shadow-inner mr-1"
             type="text"
             name="daysElapsed"
             value={selected.daysElapsed}
@@ -208,7 +208,7 @@ export const ClientEditForm = ({
         <div className="flex flex-col mb-5">
           <label className="text-left mb-1">Spend Total</label>
           <input
-            className="form-input border border-black rounded-md py-2 shadow-inner ml-1"
+            className="form-input py-2 shadow-inner ml-1"
             type="text"
             name="spendTotal"
             value={selected.spendTotal}
@@ -222,7 +222,7 @@ export const ClientEditForm = ({
       <div className="flex items-center">
         <button
           type="submit"
-          className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
+          className="submit-form bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full"
         >
           Submit
         </button>
@@ -232,7 +232,7 @@ export const ClientEditForm = ({
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="delete w-6 h-6 ml-3"
+          className="delete w-6 h-6 ml-3 hover:cursor-pointer"
           onClick={handleDelete}
         >
           <path

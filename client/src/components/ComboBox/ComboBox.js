@@ -38,6 +38,7 @@ export const ComboBox = ({
           value={selected}
           onChange={setSelected}
           multiple={singleSelection ? false : true}
+          
         >
           <div className="relative mt-1">
             <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
@@ -49,7 +50,7 @@ export const ComboBox = ({
                 }
                 className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                 displayValue={(selected) =>
-                  `${selected.firstName} ${selected.lastName}`
+                  `${selected.firstName} ${selected.lastName}\u00A0\u00A0\u00A0\u00A0\u00A0☀${selected.daysElapsed}`
                 }
                 onChange={(event) => setQuery(event.target.value)}
               />

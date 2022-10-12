@@ -1,3 +1,7 @@
-.submit-form, .delete {
-    display: none;
+form {
+    background-color: rgb(214, 187, 117);
+}
+
+.form-input {
+    border-bottom: 1px solid #000!important;
 }
