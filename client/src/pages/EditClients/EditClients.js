@@ -15,7 +15,6 @@ export const EditClients = () => {
   const [clients, setClients] = useState();
   useEffect(() => {
     getClients();
-    
   }, []);
 
   const getClients = async () => {
@@ -23,7 +22,7 @@ export const EditClients = () => {
       const response = await fetch("http://localhost:3001/api/clients");
       const clients = await response.json();
       setClients(clients);
-      setSelected(clients[0])
+      setSelected(clients[0]);
     } catch (err) {
       console.log(err);
     }
@@ -37,9 +36,9 @@ export const EditClients = () => {
     setSelected(initialState);
     document.querySelector(".client-action-message").innerHTML =
       "Creating new client";
+    document.querySelector(".submit-form-info").innerHTML = "";
     document.querySelector(".submit-form").style.display = "block";
     document.querySelector(".delete").style.display = "none";
-    
   };
 
   return (
