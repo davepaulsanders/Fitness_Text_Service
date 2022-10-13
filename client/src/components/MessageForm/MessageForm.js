@@ -1,21 +1,40 @@
 import React, { useState } from "react";
 import "./MessageForm.css";
+const emptyValidation = require("../../utils/emptyValidation");
+
 export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
   const [message, setMessage] = useState({ messageText: "", mediaLink: "" });
   const clearForm = (e) => {
     e.preventDefault();
     setMessage({ messageText: "", mediaLink: "" });
     setSelectedGroup([]);
+    document.querySelector(".message-form-info").innerHTML = "";
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const messageBody = { message, selectedGroup };
+
+    const fieldsFilled = emptyValidation(message);
+    if (fieldsFilled === false) {
+      document.querySelector(".message-form-info").style.color = "red";
+      document.querySelector(".message-form-info").innerHTML =
+        "Please fill out all fields!";
+      return;
+    }
 
     const messageToSend = await fetch("http://localhost:3001/singletext", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(messageBody),
     });
+    const messageToSendJSON = await messageToSend.json();
+
+    if (messageToSendJSON.errors) {
+      document.querySelector(".message-form-info").style.color = "red";
+      document.querySelector(".message-form-info").innerHTML = `${
+        Object.values(messageToSendJSON.errors)[0].message
+      }`;
+    }
   };
 
   return (
@@ -50,7 +69,7 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
           />
         </div>
       </div>
-      <p className="submit-form-info mb-4"></p>
+      <p className="message-form-info mb-4"></p>
       <div className="flex items-center">
         <button
           type="submit"

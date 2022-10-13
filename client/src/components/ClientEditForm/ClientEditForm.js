@@ -27,6 +27,9 @@ export const ClientEditForm = ({
   const updateClient = async (data) => {
     const emptyCheck = emptyValidation(data);
     if (emptyCheck === false) {
+      document.querySelector(".submit-form-info").style.color = "red";
+      document.querySelector(".submit-form-info").innerHTML =
+        "Please fill out all fields!";
       return;
     }
     try {

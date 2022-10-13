@@ -1,12 +1,12 @@
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const db = require("../config/connection");
 const Client = require("../models/Client");
 const Message = require("../models/Message");
-require("dotenv").config();
-const margePhone = Number(process.env.MARGE_PHONE);
-
+const margePhone = process.env.MARGE_PHONE;
 
 db.once("open", async () => {
-    console.log("seeding database...");
+  console.log("seeding database...");
   try {
     await Client.deleteMany({});
     await Message.deleteMany({});
