@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "nodemon"
+    "watch": "pm2 start server.js --watch"
   },
   "author": "Dave Sanders",
   "license": "ISC",
@@ -15,7 +15,7 @@
     "express": "^4.18.1",
     "mongoose": "^6.6.2",
     "node-cron": "^3.0.2",
-    "nodemon": "^2.0.20",
+    "pm2": "^5.2.2",
     "twilio": "^3.82.1"
   }
 }
