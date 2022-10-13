@@ -38,7 +38,7 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
               setMessage({ ...message, messageText: e.target.value })
             }
           />
-          <label className="text-left mb-1">Link (optional)</label>
+          <label className="text-left mb-1">Image Link (optional)</label>
           <input
             className="form-input py-2 shadow-inner mr-1"
             type="text"
