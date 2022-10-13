@@ -34,6 +34,9 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
       document.querySelector(".message-form-info").innerHTML = `${
         Object.values(messageToSendJSON.errors)[0].message
       }`;
+    } else {
+      document.querySelector(".message-form-info").style.color = "green";
+      document.querySelector(".message-form-info").innerHTML = "Message sent!";
     }
   };
 
