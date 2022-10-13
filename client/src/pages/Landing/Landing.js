@@ -9,6 +9,9 @@ export const Landing = () => {
     if (e.target.classList.contains("clients")) {
       navigate("/clients");
     }
+    if (e.target.classList.contains("one-time")) {
+      navigate("/send");
+    }
   };
   return (
     <div>
@@ -16,7 +19,7 @@ export const Landing = () => {
         <h2 className="mb-12 text-4xl">Welcome Bonnie and Will!</h2>
 
         <button
-          className="bg-blue-400 hover:bg-blue-500 text-xl w-3/4 mb-3 py-2 px-3 rounded-md"
+          className="one-time bg-blue-400 hover:bg-blue-500 text-xl w-3/4 mb-3 py-2 px-3 rounded-md"
           onClick={navigateURL}
         >
           Send one-time messages

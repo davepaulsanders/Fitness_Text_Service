@@ -13,12 +13,14 @@ export const ComboBox = ({
   // state for autocomplete
   const [query, setQuery] = useState("");
   const checkClientButton = (e) => {
-    e.preventDefault();
-    document.querySelector(".submit-form-info").innerHTML = "";
-    document.querySelector(".client-action-message").innerHTML =
-      "Updating client";
-    document.querySelector(".submit-form").style.display = "block";
-    document.querySelector(".delete").style.display = "block";
+    if (singleSelection === true) {
+      e.preventDefault();
+      document.querySelector(".submit-form-info").innerHTML = "";
+      document.querySelector(".client-action-message").innerHTML =
+        "Updating client";
+      document.querySelector(".submit-form").style.display = "block";
+      document.querySelector(".delete").style.display = "block";
+    }
   };
 
   // filtered list
@@ -31,7 +33,7 @@ export const ComboBox = ({
             .replace(/\s+/g, "")
             .includes(query.toLowerCase().replace(/\s+/g, ""))
         );
-        
+
   if (clients) {
     return (
       <div className="w-full">
@@ -59,8 +61,8 @@ export const ComboBox = ({
                   className="overflow-a w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                   displayValue={(people) =>
                     selectedGroup
-                    .map((person) => person.firstName + " " + person.lastName)
-                    .join(", ")
+                      .map((person) => person.firstName + " " + person.lastName)
+                      .join(", ")
                   }
                   onChange={(event) => setQuery(event.target.value)}
                 />
