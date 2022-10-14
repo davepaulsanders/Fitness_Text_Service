@@ -147,8 +147,11 @@ export const ClientEditForm = ({
       </h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2">
-          <label className="text-left mb-1">First Name</label>
+          <label htmlFor="first-name" className="text-left mb-1">
+            First Name
+          </label>
           <input
+            id="first-name"
             className="form-input py-2 shadow-inner mr-1"
             type="text"
             name="firstName"
@@ -159,8 +162,11 @@ export const ClientEditForm = ({
           />
         </div>
         <div className="flex flex-col mb-5">
-          <label className="text-left mb-1">Last Name</label>
+          <label htmlFor="last-name" className="text-left mb-1">
+            Last Name
+          </label>
           <input
+            id="last-name"
             className="form-input py-2 shadow-inner ml-1"
             type="text"
             name="lastName"
@@ -173,8 +179,11 @@ export const ClientEditForm = ({
       </div>
       <div className="flex flex-col md:flex-row justify-between">
         <div className="flex flex-col mb-2">
-          <label className="text-left mb-1">Email</label>
+          <label htmlFor="email" className="text-left mb-1">
+            Email
+          </label>
           <input
+            id="email"
             className="form-input py-2 shadow-inner truncate mr-1"
             type="text"
             name="email"
@@ -185,8 +194,11 @@ export const ClientEditForm = ({
           />
         </div>
         <div className="flex flex-col mb-5">
-          <label className="text-left mb-1">Phone</label>
+          <label htmlFor="phone-number" className="text-left mb-1">
+            Phone
+          </label>
           <input
+            id="phone-number"
             className="form-input py-2 shadow-inner ml-1"
             type="text"
             name="phoneNumber"
@@ -198,8 +210,11 @@ export const ClientEditForm = ({
         </div>
       </div>
       <div className="flex flex-col justify-center items-center mb-2">
-        <label className="text-left mb-1">Weight Loss Goals</label>
+        <label htmlFor="weight-loss" className="text-left mb-1">
+          Weight Loss Goals
+        </label>
         <textarea
+          id="weight-loss"
           className="form-input py-2 shadow-inner w-full"
           type="text"
           name="weightLossGoals"
@@ -211,8 +226,11 @@ export const ClientEditForm = ({
       </div>
       <div className="flex flex-col md:flex-row justify-between">
         <div className="flex flex-col mb-5">
-          <label className="text-left mb-1">Days Elapsed</label>
+          <label htmlFor="days-elapsed" className="text-left mb-1">
+            Days Elapsed
+          </label>
           <input
+            id="days-elapsed"
             className="form-input py-2 shadow-inner mr-1"
             type="text"
             name="daysElapsed"
@@ -223,8 +241,11 @@ export const ClientEditForm = ({
           />
         </div>
         <div className="flex flex-col mb-5">
-          <label className="text-left mb-1">Spend Total</label>
+          <label htmlFor="spend-total" className="text-left mb-1">
+            Spend Total
+          </label>
           <input
+            id="spend-total"
             className="form-input py-2 shadow-inner ml-1"
             type="text"
             name="spendTotal"

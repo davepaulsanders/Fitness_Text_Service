@@ -50,8 +50,11 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
       </h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2 w-full">
-          <label className="text-left mb-1">Message Text</label>
+          <label htmkFor="message-text" className="text-left mb-1">
+            Message Text
+          </label>
           <textarea
+            id="message-text"
             className="form-input py-2 shadow-inner mb-4"
             type="text"
             name="firstName"
@@ -60,8 +63,11 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
               setMessage({ ...message, messageText: e.target.value })
             }
           />
-          <label className="text-left mb-1">Image Link (optional)</label>
+          <label htmlFor="img-link" className="text-left mb-1">
+            Image Link (optional)
+          </label>
           <input
+            id="img-link"
             className="form-input py-2 shadow-inner mr-1"
             type="text"
             name="firstName"

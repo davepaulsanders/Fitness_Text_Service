@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "pm2 start server.js --watch"
+    "watch": "pm2 start --no-daemon server.js --watch"
   },
   "author": "Dave Sanders",
   "license": "ISC",

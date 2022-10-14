@@ -7,17 +7,23 @@ export const Login = () => {
         Welcome Bonnie and Will!
       </h1>
       <div className="flex flex-col mb-2">
-        <label className="text-left mb-1">Username</label>
+        <label htmlFor="username" className="text-left mb-1">
+          Username
+        </label>
         <input
+          id="username"
           className="form-input border border-black rounded-md py-2 shadow-inner"
           type="text"
         />
       </div>
       <div className="flex flex-col mb-5">
-        <label className="text-left mb-1">Password</label>
+        <label htmlFor="password" className="text-left mb-1">
+          Password
+        </label>
         <input
+          id="password"
           className="form-input border border-black rounded-md py-2 shadow-inner"
-          type="text"
+          type="password"
         />
       </div>
       <button className="bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md">
