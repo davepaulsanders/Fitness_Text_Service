@@ -8,7 +8,7 @@ import { EditText } from "./pages/EditText/EditText";
 import { SendText } from "./pages/SendText/SendText";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
-  const initialState = {
+  const initialStateClient = {
     firstName: "",
     lastName: "",
     email: "",
@@ -17,19 +17,24 @@ function App() {
     daysElapsed: "",
     spendTotal: "",
   };
+  const initialStateText = {
+    _id: "",
+    messageText: "",
+    mediaLink: "",
+  };
   const [loggedIn, setLoggedIn] = useState(true);
   // selected client for client edit
-  const [selected, setSelected] = useState(initialState);
+  const [selected, setSelected] = useState(initialStateClient);
   // selected text for text edit
-  const [selectedText, setSelectedText] = useState();
+  const [selectedText, setSelectedText] = useState(initialStateText);
   // selected clients for message send
   const [selectedGroup, setSelectedGroup] = useState([]);
   const [clients, setClients] = useState();
   const [texts, setTexts] = useState([]);
 
   useEffect(() => {
-    getClients();
     getTexts();
+    getClients();
   }, []);
 
   const getClients = async () => {
@@ -48,13 +53,13 @@ function App() {
       const response = await fetch("http://localhost:3001/api/messages");
       const textResponseJSON = await response.json();
       setTexts(textResponseJSON);
-      setSelectedText(texts[0]);
+      setSelectedText(textResponseJSON[0]);
     } catch (err) {
       console.log(err);
     }
   };
 
-  if (loggedIn) {
+  if (loggedIn && texts && clients) {
     return (
       <div className="App flex flex-col justify-center items-center">
         {loggedIn ? <Header /> : null}
@@ -78,7 +83,7 @@ function App() {
                   clients={clients}
                   selected={selected}
                   setSelected={setSelected}
-                  initialState={initialState}
+                  initialState={initialStateClient}
                 />
               }
             />
