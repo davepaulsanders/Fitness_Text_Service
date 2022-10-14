@@ -73,7 +73,7 @@ export const Header = () => {
         </a>
         <a
           className="mx-3 hover:bg-sky-500 rounded-md flex items-center px-3"
-          href="/daily"
+          href="/edit-text"
         >
           <li>Edit daily messages</li>
         </a>

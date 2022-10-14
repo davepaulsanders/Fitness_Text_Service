@@ -83,7 +83,7 @@ function App() {
               }
             />
             <Route
-              path="/edittext"
+              path="/edit-text"
               element={
                 <EditText
                   texts={texts}
