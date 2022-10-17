@@ -1,7 +1,14 @@
 import React from "react";
 
 import { TextsComboBox } from "../../components/TextsComboBox/TextsComboBox";
-export const EditText = ({ texts, selectedText, setSelectedText }) => {
+import { EditDailyMessageForm } from "../../components/EditDailyMessageForm/EditDailyMessageForm";
+export const EditText = ({
+  texts,
+  setTexts,
+  selectedText,
+  setSelectedText,
+  
+}) => {
   if (texts && selectedText) {
     return (
       <div>
@@ -9,6 +16,13 @@ export const EditText = ({ texts, selectedText, setSelectedText }) => {
           texts={texts}
           selectedText={selectedText}
           setSelectedText={setSelectedText}
+        />
+        <EditDailyMessageForm
+          texts={texts}
+          setTexts={setTexts}
+          selectedText={selectedText}
+          setSelectedText={setSelectedText}
+          
         />
       </div>
     );

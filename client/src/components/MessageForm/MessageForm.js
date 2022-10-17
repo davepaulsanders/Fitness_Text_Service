@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import "./MessageForm.css";
 const emptyValidation = require("../../utils/emptyValidation");
 
-export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
+export const MessageForm = ({
+  selectedGroup,
+  setSelectedGroup,
+  
+}) => {
   const [message, setMessage] = useState({ messageText: "", mediaLink: "" });
   const clearForm = (e) => {
     e.preventDefault();

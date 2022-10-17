@@ -7,6 +7,7 @@ import { EditClients } from "./pages/EditClients/EditClients";
 import { EditText } from "./pages/EditText/EditText";
 import { SendText } from "./pages/SendText/SendText";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 function App() {
   const initialStateClient = {
     firstName: "",
@@ -20,6 +21,7 @@ function App() {
   const initialStateText = {
     _id: "",
     messageText: "",
+    messageDay: "",
     mediaLink: "",
   };
   const [loggedIn, setLoggedIn] = useState(true);
@@ -92,6 +94,7 @@ function App() {
               element={
                 <EditText
                   texts={texts}
+                  setTexts={setTexts}
                   selectedText={selectedText}
                   setSelectedText={setSelectedText}
                 />
