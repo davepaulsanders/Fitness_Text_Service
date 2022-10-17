@@ -38,8 +38,8 @@ export const EditDailyMessageForm = ({
 
       const updatedMessageJSON = await updatedMessage.json();
       if (updatedMessageJSON.errors) {
-        document.querySelector(".submit-form-info").style.color = "red";
-        document.querySelector(".submit-form-info").innerHTML = `${
+        document.querySelector(".message-form-info").style.color = "red";
+        document.querySelector(".message-form-info").innerHTML = `${
           Object.values(updatedMessageJSON.errors)[0].message
         }`;
       } else {
@@ -51,7 +51,7 @@ export const EditDailyMessageForm = ({
         );
         setTexts(newTextsList);
         setSelectedText(updatedMessageJSON);
-        document.querySelector(".message-form-info").color = "green";
+        document.querySelector(".message-form-info").style.color = "green";
         document.querySelector(".message-form-info").innerHTML =
           "Text updated!";
       }
@@ -111,7 +111,7 @@ export const EditDailyMessageForm = ({
           className="submit-form bg-slate-400 hover:bg-slate-500 text-xl py-2 w-full"
           onClick={clearForm}
         >
-          Clear
+          Clear changes
         </button>
       </div>
     </form>

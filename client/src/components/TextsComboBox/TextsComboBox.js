@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Combobox, Transition } from "@headlessui/react";
+import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 export const TextsComboBox = ({ texts, selectedText, setSelectedText }) => {
@@ -34,50 +34,52 @@ export const TextsComboBox = ({ texts, selectedText, setSelectedText }) => {
                 />
               </Combobox.Button>
             </div>
-            
-              <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {filteredTexts.length === 0 && query !== "" ? (
-                  <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
-                    Nothing found.
-                  </div>
-                ) : (
-                  filteredTexts.map((text) => (
-                    <Combobox.Option
-                      key={text._id}
-                      className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                          active ? "bg-teal-600 text-white" : "text-gray-900"
-                        }`
-                      }
-                      value={text}
-                    >
-                      {({ selectedText, active }) => (
-                        <>
+
+            <Combobox.Options
+              onClick={() =>
+                (document.querySelector(".message-form-info").innerHTML = "")
+              }
+              className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+            >
+              {filteredTexts.length === 0 && query !== "" ? (
+                <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                  Nothing found.
+                </div>
+              ) : (
+                filteredTexts.map((text) => (
+                  <Combobox.Option
+                    key={text._id}
+                    className={({ active }) =>
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        active ? "bg-teal-600 text-white" : "text-gray-900"
+                      }`
+                    }
+                    value={text}
+                  >
+                    {({ selectedText, active }) => (
+                      <>
+                        <span
+                          className={`block truncate ${
+                            selectedText ? "font-medium" : "font-normal"
+                          }`}
+                        >
+                          Day {text.messageDay}
+                        </span>
+                        {selectedText ? (
                           <span
-                            className={`block truncate ${
-                              selectedText ? "font-medium" : "font-normal"
+                            className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
+                              active ? "text-white" : "text-teal-600"
                             }`}
                           >
-                            Day {text.messageDay}
+                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
                           </span>
-                          {selectedText ? (
-                            <span
-                              className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                active ? "text-white" : "text-teal-600"
-                              }`}
-                            >
-                              <CheckIcon
-                                className="h-5 w-5"
-                                aria-hidden="true"
-                              />
-                            </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Combobox.Option>
-                  ))
-                )}
-              </Combobox.Options>
+                        ) : null}
+                      </>
+                    )}
+                  </Combobox.Option>
+                ))
+              )}
+            </Combobox.Options>
           </div>
         </Combobox>
       </div>

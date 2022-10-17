@@ -4,7 +4,7 @@ const Message = require("../../models/Message");
 // get all messages
 router.get("/", async (req, res) => {
   try {
-    const messages = await Message.find({});
+    const messages = await Message.find({ messageDay: { $gte: 0 } });
     res.send(messages);
   } catch (err) {
     console.log(err);
@@ -19,7 +19,7 @@ router.put("/", async (req, res) => {
       { new: true, runValidators: true }
     );
 
-    res.send(message)
+    res.send(message);
   } catch (err) {
     res.send(err);
   }
