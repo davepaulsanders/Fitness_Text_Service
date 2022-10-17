@@ -34,13 +34,7 @@ export const TextsComboBox = ({ texts, selectedText, setSelectedText }) => {
                 />
               </Combobox.Button>
             </div>
-            <Transition
-              as={Fragment}
-              leave="transition ease-in duration-100"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-              afterLeave={() => setQuery("")}
-            >
+            
               <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {filteredTexts.length === 0 && query !== "" ? (
                   <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
@@ -84,7 +78,6 @@ export const TextsComboBox = ({ texts, selectedText, setSelectedText }) => {
                   ))
                 )}
               </Combobox.Options>
-            </Transition>
           </div>
         </Combobox>
       </div>
