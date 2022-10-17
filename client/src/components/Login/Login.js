@@ -2,7 +2,7 @@ import React from "react";
 
 export const Login = () => {
   return (
-    <div className="rounded-md p-6 w-11/12 lg:w-3/12 shadow">
+    <div className="p-6 w-11/12 lg:w-4/12 shadow bg-white">
       <h1 className="text-left mb-6 text-2xl font-bold">
         Welcome Bonnie and Will!
       </h1>
@@ -12,7 +12,7 @@ export const Login = () => {
         </label>
         <input
           id="username"
-          className="form-input border border-black rounded-md py-2 shadow-inner"
+          className="form-input py-2 shadow-inner"
           type="text"
         />
       </div>
@@ -22,7 +22,7 @@ export const Login = () => {
         </label>
         <input
           id="password"
-          className="form-input border border-black rounded-md py-2 shadow-inner"
+          className="form-input py-2 shadow-inner"
           type="password"
         />
       </div>

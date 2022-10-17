@@ -24,7 +24,7 @@ function App() {
     messageDay: "",
     mediaLink: "",
   };
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   // selected client for client edit
   const [selected, setSelected] = useState(initialStateClient);
   // selected text for text edit
@@ -106,7 +106,7 @@ function App() {
     );
   } else {
     return (
-      <div className="App flex flex-col justify-center items-center">
+      <div className="App flex flex-col justify-center items-center w-full">
         <Login />
       </div>
     );
