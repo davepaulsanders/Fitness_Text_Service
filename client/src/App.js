@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
+
 import { Header } from "./components/Header/Header";
 import { Login } from "./components/Login/Login";
 import { Landing } from "./pages/Landing/Landing";
@@ -24,7 +25,8 @@ function App() {
     messageDay: "",
     mediaLink: "",
   };
-  const [loggedIn, setLoggedIn] = useState(false);
+
+  const [loggedIn, setLoggedIn] = useState();
   // selected client for client edit
   const [selected, setSelected] = useState(initialStateClient);
   // selected text for text edit
@@ -37,6 +39,10 @@ function App() {
   useEffect(() => {
     getTexts();
     getClients();
+
+    if (localStorage.getItem("jwt") !== null) {
+      setLoggedIn(true);
+    }
   }, []);
 
   const getClients = async () => {
@@ -61,13 +67,17 @@ function App() {
     }
   };
 
-  if (loggedIn && texts && clients) {
+  if (texts && clients) {
     return (
       <div className="App flex flex-col justify-center items-center">
-        {loggedIn ? <Header /> : null}
+        {loggedIn === true ? <Header /> : null}
         <Router>
           <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path="/landing" element={<Landing />} />
+            <Route
+              path="/"
+              element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
+            />
             <Route
               path="/send"
               element={
@@ -105,11 +115,7 @@ function App() {
       </div>
     );
   } else {
-    return (
-      <div className="App flex flex-col justify-center items-center w-full">
-        <Login />
-      </div>
-    );
+    return;
   }
 }
 

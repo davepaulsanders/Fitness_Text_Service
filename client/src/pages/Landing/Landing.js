@@ -12,6 +12,9 @@ export const Landing = () => {
     if (e.target.classList.contains("one-time")) {
       navigate("/send");
     }
+    if (e.target.classList.contains("daily-edit")) {
+      navigate("/edit-text");
+    }
   };
   return (
     <div>
@@ -25,7 +28,10 @@ export const Landing = () => {
           Send one-time messages
         </button>
 
-        <button className="bg-blue-400 hover:bg-blue-500 text-xl w-3/4 mb-3 py-2 rounded-md">
+        <button
+          className="daily-edit bg-blue-400 hover:bg-blue-500 text-xl w-3/4 mb-3 py-2 rounded-md"
+          onClick={navigateURL}
+        >
           Edit daily messages
         </button>
         <button

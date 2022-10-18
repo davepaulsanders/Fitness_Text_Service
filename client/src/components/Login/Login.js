@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const Login = ({ loggedIn, setLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("jwt") !== null) {
+      navigate("/landing");
+    }
+  }, []);
+
+  
   const handleSubmit = async (e) => {
     const body = { username, password };
 
@@ -13,9 +22,16 @@ export const Login = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-    if (token.error) {
+
+    const tokenResponse = await token.json();
+
+    if (tokenResponse.error) {
+      document.querySelector(".error-message").style.color = "red";
+      document.querySelector(".error-message").innerHTML = tokenResponse.error;
     } else {
-      localStorage.setItem("jwt", token.userToken);
+      localStorage.setItem("jwt", tokenResponse.userToken);
+      setLoggedIn(true);
+      navigate("/landing");
     }
   };
   return (
@@ -48,6 +64,7 @@ export const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      <p className="error-message mb-4"></p>
       <button
         type="submit"
         className="bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"

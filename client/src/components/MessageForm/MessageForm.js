@@ -1,12 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MessageForm.css";
 const emptyValidation = require("../../utils/emptyValidation");
 
-export const MessageForm = ({
-  selectedGroup,
-  setSelectedGroup,
-  
-}) => {
+export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState({ messageText: "", mediaLink: "" });
   const clearForm = (e) => {
     e.preventDefault();
@@ -17,6 +15,7 @@ export const MessageForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     const messageBody = { message, selectedGroup };
+    const lstoken = localStorage.getItem("jwt");
 
     const fieldsFilled = emptyValidation(message);
     if (fieldsFilled === false) {
@@ -26,21 +25,25 @@ export const MessageForm = ({
       return;
     }
 
-    const messageToSend = await fetch("http://localhost:3001/singletext", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(messageBody),
-    });
-    const messageToSendJSON = await messageToSend.json();
-
-    if (messageToSendJSON.errors) {
-      document.querySelector(".message-form-info").style.color = "red";
-      document.querySelector(".message-form-info").innerHTML = `${
-        Object.values(messageToSendJSON.errors)[0].message
-      }`;
-    } else {
-      document.querySelector(".message-form-info").style.color = "green";
-      document.querySelector(".message-form-info").innerHTML = "Message sent!";
+    try {
+      const messageToSend = await fetch("http://localhost:3001/singletext", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: lstoken },
+        body: JSON.stringify(messageBody),
+      });
+      const messageToSendJSON = await messageToSend.json();
+      if (messageToSendJSON.errors) {
+        document.querySelector(".message-form-info").style.color = "red";
+        document.querySelector(".message-form-info").innerHTML = `${
+          Object.values(messageToSendJSON.errors)[0].message
+        }`;
+      } else {
+        document.querySelector(".message-form-info").style.color = "green";
+        document.querySelector(".message-form-info").innerHTML =
+          "Message sent!";
+      }
+    } catch (err) {
+      navigate("/");
     }
   };
 
@@ -54,7 +57,7 @@ export const MessageForm = ({
       </h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2 w-full">
-          <label htmkFor="message-text" className="text-left mb-1">
+          <label htmlFor="message-text" className="text-left mb-1">
             Message Text
           </label>
           <textarea

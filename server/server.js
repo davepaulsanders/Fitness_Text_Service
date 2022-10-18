@@ -2,16 +2,16 @@ const express = require("express");
 const { MessagingResponse } = require("twilio").twiml;
 const db = require("./config/connection");
 const controllers = require("./controllers");
-const twilio = require("twilio");
-const scheduledSMS = require("./scheduledSMS");
 const cors = require("cors");
+const passport = require("passport");
 
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(controllers);
-
+require("./middleware/passportJWT");
+app.use(passport.initialize());
 app.get("/response", (req, res) => {
   // This logs the message that was sent!  We want to be able to get this to the account holders phone number!
   // In a local environment, ngrok needs to be running to send replies.  The ngrok forwarding tunnel has to be
