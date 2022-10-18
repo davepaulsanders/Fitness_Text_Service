@@ -14,16 +14,15 @@ const userSchema = new Schema({
 
 userSchema.pre("save", async function (next) {
   const user = this;
+  if (!user.isModified("password")) return next();
   const hash = await bcrypt.hash(user.password, 10);
   user.password = hash;
 
-  next(user);
-  // Store hash in the database
-
-  //   bcrypt.genSalt(10, (err, salt) => {
-  //       const hash = bcrypt.hash(user.password, salt, function (err, hash) {
-  // });
-  // });
+  next();
 });
+
+userSchema.methods.comparePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 const User = model("User", userSchema);
 module.exports = User;
