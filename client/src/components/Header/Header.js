@@ -1,6 +1,14 @@
 import React from "react";
+
 import "./Header.css";
+
 export const Header = () => {
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("jwt");
+    window.location.href = "/";
+  };
+
   const toggleMenu = () => {
     document.querySelector("ul").classList.add("transition");
     if (document.querySelector("ul").classList.contains("openMenu")) {
@@ -83,6 +91,12 @@ export const Header = () => {
         >
           <li>Edit clients</li>
         </a>
+        <button
+          className="logout flex justify-start pl-6"
+          onClick={handleLogOut}
+        >
+          Log out
+        </button>
       </ul>
     </header>
   );
