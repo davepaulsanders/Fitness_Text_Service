@@ -15,7 +15,9 @@ export const EditText = ({
     const dayInput = document.querySelectorAll(".messageDay");
     dayInput.forEach((x) => x.classList.remove("hidden"));
     document.querySelector(".text-action").classList.remove("hidden");
-    document.querySelector(".text-action").innerHTML = "Creating new daily message"
+    document.querySelector(".text-action").innerHTML =
+      "Creating new daily message";
+    document.querySelector(".delete").style.display = "none";
   };
 
   if (texts && selectedText) {

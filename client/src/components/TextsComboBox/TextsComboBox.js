@@ -20,6 +20,7 @@ export const TextsComboBox = ({ texts, selectedText, setSelectedText }) => {
     document.querySelector(".text-action").innerHTML = "";
     const dayInput = document.querySelectorAll(".messageDay");
     dayInput.forEach((x) => x.classList.add("hidden"));
+    document.querySelector(".delete").style.display = "block";
   };
   if (texts && selectedText) {
     return (
