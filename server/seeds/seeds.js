@@ -3,6 +3,7 @@ require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const db = require("../config/connection");
 const Client = require("../models/Client");
 const Message = require("../models/Message");
+const User = require("../models/User");
 const margePhone = process.env.MARGE_PHONE;
 
 db.once("open", async () => {
@@ -31,6 +32,7 @@ db.once("open", async () => {
         email: "davepaulsanders@gmail.com",
         phoneNumber: "6095294847",
         weightLossGoals: "15 pounds",
+        startDate: "10/19/2022",
       },
       {
         username: "margenice",
@@ -40,8 +42,13 @@ db.once("open", async () => {
         phoneNumber: margePhone,
         weightLossGoals: "0 pounds",
         daysElapsed: 4,
+        startDate: "10/19/2022",
       },
     ]);
+    await User.create({
+      username: "davepsandy",
+      password: "123456"
+    })
     console.log("Clients and messages created!");
     process.exit(0);
   } catch (err) {

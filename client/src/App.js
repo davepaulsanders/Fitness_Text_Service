@@ -18,6 +18,8 @@ function App() {
     weightLossGoals: "",
     daysElapsed: "",
     spendTotal: "",
+    coach: "",
+    startDate: "",
   };
   const initialStateText = {
     _id: "",

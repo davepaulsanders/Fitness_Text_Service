@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ClientEditForm.css";
+const moment = require("moment");
+
 const emptyValidation = require("../../utils/emptyValidation");
 
 export const ClientEditForm = ({
@@ -262,6 +264,38 @@ export const ClientEditForm = ({
             value={selected.spendTotal}
             onChange={(e) =>
               setSelected({ ...selected, spendTotal: e.target.value })
+            }
+          />
+        </div>
+      </div>
+      <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col mb-5">
+          <label htmlFor="spend-total" className="text-left mb-1">
+            Start Date
+          </label>
+          <input
+            id="spend-total"
+            className="form-input py-2 shadow-inner ml-1"
+            type="text"
+            name="spendTotal"
+            value={moment(selected.startDate).format("MM/DD/YYYY")}
+            onChange={(e) =>
+              setSelected({ ...selected, startDate: e.target.value })
+            }
+          />
+        </div>
+        <div className="flex flex-col mb-5">
+          <label htmlFor="spend-total" className="text-left mb-1">
+            Coach
+          </label>
+          <input
+            id="spend-total"
+            className="form-input py-2 shadow-inner ml-1"
+            type="text"
+            name="spendTotal"
+            value={selected.coach}
+            onChange={(e) =>
+              setSelected({ ...selected, coach: e.target.value })
             }
           />
         </div>

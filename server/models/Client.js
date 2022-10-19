@@ -36,10 +36,18 @@ const clientSchema = new Schema({
     required: "true",
     default: 1,
   },
+  startDate: {
+    type: Date,
+    required: true,
+  },
   spendTotal: {
     type: "Number",
     required: "true",
     default: 0,
+  },
+  coach: {
+    type: "String",
+    default: "Bonnie Tynch",
   },
 });
 
