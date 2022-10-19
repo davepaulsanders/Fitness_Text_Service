@@ -99,7 +99,7 @@ export const EditDailyMessageForm = ({
           }
         );
         const newDailyMessageJSON = await newDailyMessage.json();
-        
+
         if (newDailyMessageJSON.errors) {
           document.querySelector(".message-form-info").style.color = "red";
           document.querySelector(".message-form-info").innerHTML = `${
@@ -119,11 +119,69 @@ export const EditDailyMessageForm = ({
       }
     }
   };
+  const handleDelete = (e) => {
+    e.preventDefault();
+    document.querySelector(".delete-message").classList.remove("hidden");
+    document.querySelector(".cancel-delete-message").classList.remove("hidden");
+    document.querySelector(".submit-form").style.display = "none";
+    document.querySelector(".clear-form").style.display = "none";
+    document.querySelector(".delete").style.display = "none";
+  };
 
+  const deleteDailyConfirm = async (e) => {
+    e.preventDefault();
+
+    if (e.target.classList.contains("cancel-delete-message")) {
+      document.querySelector(".delete-message").classList.add("hidden");
+      document.querySelector(".cancel-delete-message").classList.add("hidden");
+      document.querySelector(".submit-form").style.display = "block";
+      document.querySelector(".clear-form").style.display = "block";
+      document.querySelector(".delete").style.display = "block";
+    } else {
+      try {
+        const lstoken = localStorage.getItem("jwt");
+
+        const _id = document.querySelector("form").getAttribute("data-id");
+
+        const deletedMessage = await fetch(
+          "http://localhost:3001/api/messages",
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: lstoken,
+            },
+            body: JSON.stringify({ _id }),
+          }
+        );
+        const deletedMessageJSON = await deletedMessage.json();
+
+        if (deletedMessage.errors) {
+          document.querySelector(".message-form-info").style.color = "red";
+          document.querySelector(".message-form-info").innerHTML = `${
+            Object.values(deletedMessage.errors)[0].message
+          }`;
+        } else {
+          document.querySelector(".message-form-info").style.color = "green";
+          document.querySelector(".message-form-info").innerHTML =
+            "Text deleted";
+          const oldTextsList = [...texts];
+          const removedTextsList = oldTextsList.filter(
+            (text) => text._id !== _id
+          );
+          setTexts(removedTextsList);
+          setSelectedText(texts[0]);
+        }
+      } catch (err) {
+        navigate("/");
+      }
+    }
+  };
   return (
     <form
       className="message-form rounded-md shadow p-4  mt-10 mb-20"
       onSubmit={handleSubmit}
+      data-id={selectedText._id}
     >
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2 w-full">
@@ -177,11 +235,38 @@ export const EditDailyMessageForm = ({
         </button>
         <button
           type="submit"
-          className="submit-form bg-slate-400 hover:bg-slate-500 text-xl py-2 w-full"
+          className="submit-form clear-form bg-slate-400 hover:bg-slate-500 text-xl py-2 w-full"
           onClick={clearForm}
         >
           Clear changes
         </button>
+        <button
+          className="delete-message bg-red-500 text-xl py-2 w-full hidden"
+          onClick={deleteDailyConfirm}
+        >
+          Delete
+        </button>
+        <button
+          className="cancel-delete-message bg-slate-500 text-xl py-2 w-full hidden"
+          onClick={deleteDailyConfirm}
+        >
+          Cancel
+        </button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="delete w-12 h-12 ml-3 hover:cursor-pointer"
+          onClick={handleDelete}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+          />
+        </svg>
       </div>
     </form>
   );

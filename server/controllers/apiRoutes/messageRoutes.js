@@ -44,4 +44,16 @@ router.post(
     }
   }
 );
+router.delete(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const deletedMessage = await Message.findOneAndDelete({_id: req.body._id});
+      res.send(deletedMessage);
+    } catch (err) {
+      res.send(err);
+    }
+  }
+);
 module.exports = router;
