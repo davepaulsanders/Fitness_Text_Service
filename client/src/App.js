@@ -37,17 +37,19 @@ function App() {
   const [texts, setTexts] = useState([]);
 
   useEffect(() => {
-    getTexts();
-    getClients();
-
     if (localStorage.getItem("jwt") !== null) {
       setLoggedIn(true);
+      if (clients === undefined) getClients();
+      getTexts();
     }
   }, []);
-
+  console.log("render");
   const getClients = async () => {
+    const lstoken = localStorage.getItem("jwt");
     try {
-      const response = await fetch("http://localhost:3001/api/clients");
+      const response = await fetch("http://localhost:3001/api/clients", {
+        headers: { Authorization: lstoken },
+      });
       const clients = await response.json();
       setClients(clients);
       setSelected(clients[0]);
@@ -57,8 +59,11 @@ function App() {
     }
   };
   const getTexts = async () => {
+    const lstoken = localStorage.getItem("jwt");
     try {
-      const response = await fetch("http://localhost:3001/api/messages");
+      const response = await fetch("http://localhost:3001/api/messages", {
+        headers: { Authorization: lstoken },
+      });
       const textResponseJSON = await response.json();
       setTexts(textResponseJSON);
       setSelectedText(textResponseJSON[0]);
@@ -67,56 +72,60 @@ function App() {
     }
   };
 
-  if (texts && clients) {
-    return (
-      <div className="App flex flex-col justify-center items-center">
+  return (
+    <div className="App flex flex-col justify-center items-center">
+      <Router>
         {loggedIn === true ? <Header /> : null}
-        <Router>
-          <Routes>
-            <Route path="/landing" element={<Landing />} />
-            <Route
-              path="/"
-              element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />}
-            />
-            <Route
-              path="/send"
-              element={
-                <SendText
-                  clients={clients}
-                  selectedGroup={selectedGroup}
-                  setSelectedGroup={setSelectedGroup}
-                />
-              }
-            />
-            <Route
-              path="/clients"
-              element={
-                <EditClients
-                  clients={clients}
-                  selected={selected}
-                  setSelected={setSelected}
-                  initialState={initialStateClient}
-                />
-              }
-            />
-            <Route
-              path="/edit-text"
-              element={
-                <EditText
-                  texts={texts}
-                  setTexts={setTexts}
-                  selectedText={selectedText}
-                  setSelectedText={setSelectedText}
-                />
-              }
-            />
-          </Routes>
-        </Router>
-      </div>
-    );
-  } else {
-    return;
-  }
+        <Routes>
+          <Route path="/landing" element={<Landing />} />
+          <Route
+            path="/"
+            element={
+              <Login
+                getClients={getClients}
+                getTexts={getTexts}
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
+              />
+            }
+          />
+          <Route
+            path="/send"
+            element={
+              <SendText
+                clients={clients}
+                selectedGroup={selectedGroup}
+                setSelectedGroup={setSelectedGroup}
+              />
+            }
+          />
+          <Route
+            path="/clients"
+            element={
+              <EditClients
+                clients={clients}
+                setClients={setClients}
+                selected={selected}
+                setSelected={setSelected}
+                initialState={initialStateClient}
+              />
+            }
+          />
+          <Route
+            path="/edit-text"
+            element={
+              <EditText
+                texts={texts}
+                setTexts={setTexts}
+                selectedText={selectedText}
+                setSelectedText={setSelectedText}
+              />
+            }
+          />
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
 export default App;

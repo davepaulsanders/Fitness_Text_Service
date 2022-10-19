@@ -1,27 +1,35 @@
 const router = require("express").Router();
 const Message = require("../../models/Message");
-
+const passport = require("passport");
 // get all messages
-router.get("/", async (req, res) => {
-  try {
-    const messages = await Message.find({ messageDay: { $gte: 0 } });
-    res.send(messages);
-  } catch (err) {
-    console.log(err);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const messages = await Message.find({ messageDay: { $gte: 0 } });
+      res.send(messages);
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 // get all messages
-router.put("/", async (req, res) => {
-  try {
-    const message = await Message.findOneAndUpdate(
-      { _id: req.body._id },
-      req.body,
-      { new: true, runValidators: true }
-    );
+router.put(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const message = await Message.findOneAndUpdate(
+        { _id: req.body._id },
+        req.body,
+        { new: true, runValidators: true }
+      );
 
-    res.send(message);
-  } catch (err) {
-    res.send(err);
+      res.send(message);
+    } catch (err) {
+      res.send(err);
+    }
   }
-});
+);
 module.exports = router;

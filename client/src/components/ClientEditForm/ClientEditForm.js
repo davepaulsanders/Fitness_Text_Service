@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./ClientEditForm.css";
 const emptyValidation = require("../../utils/emptyValidation");
 
@@ -7,8 +8,9 @@ export const ClientEditForm = ({
   setSelected,
   clients,
   setClients,
-  initialState,
 }) => {
+  const lstoken = localStorage.getItem("jwt");
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const submitButton = document.querySelector(".submit-form-info");
@@ -35,7 +37,7 @@ export const ClientEditForm = ({
     try {
       const updatedClient = await fetch("http://localhost:3001/api/clients", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: lstoken },
         body: JSON.stringify(data),
       });
 
@@ -61,6 +63,7 @@ export const ClientEditForm = ({
       }
     } catch (err) {
       console.log(err);
+      navigate("/");
     }
   };
 
@@ -69,22 +72,26 @@ export const ClientEditForm = ({
     if (emptyCheck === false) {
       return;
     }
-    const newClient = await fetch("http://localhost:3001/api/clients", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+    try {
+      const newClient = await fetch("http://localhost:3001/api/clients", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: lstoken },
+        body: JSON.stringify(data),
+      });
 
-    const newClientInfo = await newClient.json();
-    if (newClientInfo.errors) {
-      document.querySelector(".submit-form-info").style.color = "red";
-      document.querySelector(".submit-form-info").innerHTML = `${
-        Object.values(newClientInfo.errors)[0].message
-      }`;
-    } else {
-      document.querySelector(".submit-form-info").style.color = "green";
-      document.querySelector(".submit-form-info").innerHTML = "Client added!";
-      setClients((clients) => [...clients, newClientInfo]);
+      const newClientInfo = await newClient.json();
+      if (newClientInfo.errors) {
+        document.querySelector(".submit-form-info").style.color = "red";
+        document.querySelector(".submit-form-info").innerHTML = `${
+          Object.values(newClientInfo.errors)[0].message
+        }`;
+      } else {
+        document.querySelector(".submit-form-info").style.color = "green";
+        document.querySelector(".submit-form-info").innerHTML = "Client added!";
+        setClients((clients) => [...clients, newClientInfo]);
+      }
+    } catch (err) {
+      navigate("/");
     }
   };
 
@@ -106,7 +113,10 @@ export const ClientEditForm = ({
       try {
         const deleteClient = await fetch("http://localhost:3001/api/clients", {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: lstoken,
+          },
           body: JSON.stringify({ id }),
         });
 
@@ -127,7 +137,7 @@ export const ClientEditForm = ({
           setSelected(clients[0]);
         }
       } catch (err) {
-        console.log(err);
+        navigate("/");
       }
     }
     document.querySelector(".delete-client").style.display = "none";

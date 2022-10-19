@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import emptyValidation from "../../utils/emptyValidation";
 export const EditDailyMessageForm = ({
   texts,
@@ -6,6 +7,10 @@ export const EditDailyMessageForm = ({
   selectedText,
   setSelectedText,
 }) => {
+  const navigate = useNavigate();
+
+
+  // clear form back to original daily message
   const clearForm = (e) => {
     e.preventDefault();
 
@@ -18,8 +23,12 @@ export const EditDailyMessageForm = ({
 
     document.querySelector(".message-form-info").innerHTML = "";
   };
+
+
+  // update texts
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const lstoken = localStorage.getItem("jwt");
 
     const fieldsFilled = emptyValidation(selectedText);
     if (fieldsFilled === false) {
@@ -32,7 +41,7 @@ export const EditDailyMessageForm = ({
     try {
       const updatedMessage = await fetch("http://localhost:3001/api/messages", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: lstoken },
         body: JSON.stringify(selectedText),
       });
 
@@ -56,7 +65,7 @@ export const EditDailyMessageForm = ({
           "Text updated!";
       }
     } catch (err) {
-      console.log(err);
+      navigate("/");
     }
   };
 

@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 export const Header = () => {
@@ -35,9 +35,9 @@ export const Header = () => {
   });
   return (
     <header className="absolute top-0 left-0 md:px-12 md:pt-8 flex w-full items-center justify-between">
-      <a className="pl-6" href="/">
+      <Link className="pl-6" to="/">
         <h1 className="font-bold text-4xl whitespace-nowrap">Fitness Text</h1>
-      </a>
+      </Link>
       {/* HAMBURGER ICON */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -73,24 +73,27 @@ export const Header = () => {
       </svg>
 
       <ul className="flex absolute">
-        <a
+        <Link
           className="mx-3 hover:bg-sky-500 rounded-md flex items-center px-3"
-          href="/send"
+          to="/send"
+          onClick={toggleMenu}
         >
           <li>Send message</li>
-        </a>
-        <a
+        </Link>
+        <Link
           className="mx-3 hover:bg-sky-500 rounded-md flex items-center px-3"
-          href="/edit-text"
+          to="/edit-text"
+          onClick={toggleMenu}
         >
           <li>Edit daily messages</li>
-        </a>
-        <a
+        </Link>
+        <Link
           className="mx-3 hover:bg-sky-500 rounded-md flex items-center px-3"
-          href="/clients"
+          to="/clients"
+          onClick={toggleMenu}
         >
           <li>Edit clients</li>
-        </a>
+        </Link>
         <button
           className="logout flex justify-start pl-6"
           onClick={handleLogOut}

@@ -11,10 +11,12 @@ header {
     display: none;
     right: 2rem;
     position: absolute;
+    z-index: 2!important;
 }
 
 ul {
     right: 3rem;
+    z-index: 1;
 }
 .transition {
     transition: transform 0.3s ease-in-out;

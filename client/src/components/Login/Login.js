@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Login = ({ loggedIn, setLoggedIn }) => {
+export const Login = ({ getClients, getTexts, loggedIn, setLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
     }
   }, []);
 
-  
   const handleSubmit = async (e) => {
     const body = { username, password };
 
@@ -31,6 +30,8 @@ export const Login = ({ loggedIn, setLoggedIn }) => {
     } else {
       localStorage.setItem("jwt", tokenResponse.userToken);
       setLoggedIn(true);
+      await getClients();
+      await getTexts();
       navigate("/landing");
     }
   };
