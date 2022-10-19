@@ -32,4 +32,16 @@ router.put(
     }
   }
 );
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const newDailyMessage = await Message.create(req.body);
+      res.send(newDailyMessage);
+    } catch (err) {
+      res.send(err);
+    }
+  }
+);
 module.exports = router;

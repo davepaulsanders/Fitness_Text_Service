@@ -45,7 +45,7 @@ function App() {
       getTexts();
     }
   }, []);
-  console.log("render");
+  
   const getClients = async () => {
     const lstoken = localStorage.getItem("jwt");
     try {
@@ -121,6 +121,7 @@ function App() {
                 setTexts={setTexts}
                 selectedText={selectedText}
                 setSelectedText={setSelectedText}
+                initialState={initialStateText}
               />
             }
           />

@@ -1,14 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import emptyValidation from "../../utils/emptyValidation";
+import "./EditDailyMessageForm.css";
+
 export const EditDailyMessageForm = ({
   texts,
   setTexts,
   selectedText,
   setSelectedText,
+  initialState,
 }) => {
   const navigate = useNavigate();
-
 
   // clear form back to original daily message
   const clearForm = (e) => {
@@ -19,11 +21,15 @@ export const EditDailyMessageForm = ({
       text._id === selectedText._id ? text : null
     );
     const filteredText = filteredPrev[0];
-    setSelectedText({ ...selectedText, ...filteredText });
+
+    if (filteredText === undefined) {
+      setSelectedText(initialState);
+    } else {
+      setSelectedText({ ...selectedText, ...filteredText });
+    }
 
     document.querySelector(".message-form-info").innerHTML = "";
   };
-
 
   // update texts
   const handleSubmit = async (e) => {
@@ -38,34 +44,79 @@ export const EditDailyMessageForm = ({
       return;
     }
 
-    try {
-      const updatedMessage = await fetch("http://localhost:3001/api/messages", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json", Authorization: lstoken },
-        body: JSON.stringify(selectedText),
-      });
-
-      const updatedMessageJSON = await updatedMessage.json();
-      if (updatedMessageJSON.errors) {
-        document.querySelector(".message-form-info").style.color = "red";
-        document.querySelector(".message-form-info").innerHTML = `${
-          Object.values(updatedMessageJSON.errors)[0].message
-        }`;
-      } else {
-        const tempTextsList = [...texts];
-        const newTextsList = tempTextsList.map((text) =>
-          text._id === updatedMessageJSON._id
-            ? (text = updatedMessageJSON)
-            : text
+    // If the message already exists in the database and is just being updated:
+    if (document.querySelector(".text-action").classList.contains("hidden")) {
+      try {
+        const updatedMessage = await fetch(
+          "http://localhost:3001/api/messages",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: lstoken,
+            },
+            body: JSON.stringify(selectedText),
+          }
         );
-        setTexts(newTextsList);
-        setSelectedText(updatedMessageJSON);
-        document.querySelector(".message-form-info").style.color = "green";
-        document.querySelector(".message-form-info").innerHTML =
-          "Text updated!";
+
+        const updatedMessageJSON = await updatedMessage.json();
+        if (updatedMessageJSON.errors) {
+          document.querySelector(".message-form-info").style.color = "red";
+          document.querySelector(".message-form-info").innerHTML = `${
+            Object.values(updatedMessageJSON.errors)[0].message
+          }`;
+        } else {
+          const tempTextsList = [...texts];
+          const newTextsList = tempTextsList.map((text) =>
+            text._id === updatedMessageJSON._id
+              ? (text = updatedMessageJSON)
+              : text
+          );
+          setTexts(newTextsList);
+          setSelectedText(updatedMessageJSON);
+          document.querySelector(".message-form-info").style.color = "green";
+          document.querySelector(".message-form-info").innerHTML =
+            "Text updated!";
+        }
+      } catch (err) {
+        navigate("/");
       }
-    } catch (err) {
-      navigate("/");
+    } else {
+      // if we are creating a new daily message:
+      try {
+        const lstoken = localStorage.getItem("jwt");
+        const body = { ...selectedText };
+        delete body._id;
+        const newDailyMessage = await fetch(
+          "http://localhost:3001/api/messages",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: lstoken,
+            },
+            body: JSON.stringify(body),
+          }
+        );
+        const newDailyMessageJSON = await newDailyMessage.json();
+        
+        if (newDailyMessageJSON.errors) {
+          document.querySelector(".message-form-info").style.color = "red";
+          document.querySelector(".message-form-info").innerHTML = `${
+            Object.values(newDailyMessageJSON.errors)[0].message
+          }`;
+        } else {
+          const tempTextsList = [...texts];
+          tempTextsList.push(newDailyMessageJSON);
+          setTexts(tempTextsList);
+          setSelectedText(newDailyMessageJSON);
+          document.querySelector(".message-form-info").style.color = "green";
+          document.querySelector(".message-form-info").innerHTML =
+            "Text created!";
+        }
+      } catch (err) {
+        navigate("/");
+      }
     }
   };
 
@@ -74,11 +125,20 @@ export const EditDailyMessageForm = ({
       className="message-form rounded-md shadow p-4  mt-10 mb-20"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-left client-action-message text-3xl pt-2 pb-5">
-        Day {selectedText.messageDay}
-      </h2>
       <div className="flex flex-col md:flex-row justify-between w-full">
         <div className="flex flex-col mb-2 w-full">
+          <h2 className="hidden text-action text-left text-3xl pt-2 pb-5"></h2>
+          <label htmlFor="day" className="messageDay text-left mb-1 hidden">
+            Day
+          </label>
+          <input
+            className="messageDay form-input py-2 shadow-inner mb-4 hidden"
+            type="text"
+            value={selectedText.messageDay}
+            onChange={(e) =>
+              setSelectedText({ ...selectedText, messageDay: e.target.value })
+            }
+          />
           <label htmlFor="message-text" className="text-left mb-1">
             Message Text
           </label>

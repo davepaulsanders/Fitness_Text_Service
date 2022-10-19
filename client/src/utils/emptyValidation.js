@@ -1,6 +1,6 @@
 module.exports = (data) => {
   for (let input in data) {
-    if (data[input] === "" && input !== "mediaLink") {
+    if (data[input] === "" && input !== "_id" && input !== "mediaLink") {
       return false;
     }
   }
