@@ -9,8 +9,9 @@ export const Header = () => {
     window.location.href = "/";
   };
 
-  const toggleMenu = () => {
+  const toggleMenu = (e) => {
     document.querySelector("ul").classList.add("transition");
+
     if (document.querySelector("ul").classList.contains("openMenu")) {
       document.querySelector("ul").classList.remove("openMenu");
       document.querySelector(".close").style.display = "none";
@@ -76,21 +77,18 @@ export const Header = () => {
         <Link
           className="mx-3 hover:bg-sky-500 rounded-md flex items-center px-3"
           to="/send"
-          onClick={toggleMenu}
         >
           <li>Send message</li>
         </Link>
         <Link
           className="mx-3 hover:bg-sky-500 rounded-md flex items-center px-3"
           to="/edit-text"
-          onClick={toggleMenu}
         >
           <li>Edit daily messages</li>
         </Link>
         <Link
           className="mx-3 hover:bg-sky-500 rounded-md flex items-center px-3"
           to="/clients"
-          onClick={toggleMenu}
         >
           <li>Edit clients</li>
         </Link>
