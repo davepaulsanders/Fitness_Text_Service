@@ -18,6 +18,9 @@ export const EditText = ({
     document.querySelector(".text-action").innerHTML =
       "Creating new daily message";
     document.querySelector(".delete").style.display = "none";
+    document.querySelector(".submit-form").style.display = "block";
+    document.querySelector(".delete-message").classList.add("hidden");
+    document.querySelector(".cancel-delete-message").classList.add("hidden");
   };
 
   if (texts && selectedText) {

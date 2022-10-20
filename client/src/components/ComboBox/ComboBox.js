@@ -20,6 +20,10 @@ export const ComboBox = ({
         "Updating client";
       document.querySelector(".submit-form").style.display = "block";
       document.querySelector(".delete").style.display = "block";
+      if (document.querySelector(".delete-client")) {
+        document.querySelector(".delete-client").style.display = "none";
+        document.querySelector(".cancel-delete-client").style.display = "none";
+      }
     }
   };
 

@@ -20,6 +20,10 @@ export const EditClients = ({
     document.querySelector(".submit-form-info").innerHTML = "";
     document.querySelector(".submit-form").style.display = "block";
     document.querySelector(".delete").style.display = "none";
+    if (document.querySelector(".delete-client")) {
+      document.querySelector(".delete-client").style.display = "none";
+      document.querySelector(".cancel-delete-client").style.display = "none";
+    }
   };
 
   return (

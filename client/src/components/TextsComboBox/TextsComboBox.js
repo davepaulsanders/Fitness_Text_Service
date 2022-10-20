@@ -18,9 +18,21 @@ export const TextsComboBox = ({ texts, selectedText, setSelectedText }) => {
     document.querySelector(".message-form-info").innerHTML = "";
     document.querySelector(".text-action").classList.add("hidden");
     document.querySelector(".text-action").innerHTML = "";
-    const dayInput = document.querySelectorAll(".messageDay");
-    dayInput.forEach((x) => x.classList.add("hidden"));
+    document
+      .querySelectorAll(".messageDay")
+      .forEach((x) => x.classList.add("hidden"));
     document.querySelector(".delete").style.display = "block";
+    document
+      .querySelectorAll(".submit-form")
+      .forEach((x) => (x.style.display = "block"));
+
+    if (
+      document.querySelector(".delete-message").classList.contains("hidden")
+    ) {
+      return;
+    }
+    document.querySelector(".delete-message").classList.add("hidden");
+    document.querySelector(".cancel-delete-message").classList.add("hidden");
   };
   if (texts && selectedText) {
     return (
