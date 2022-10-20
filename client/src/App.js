@@ -45,7 +45,7 @@ function App() {
       getTexts();
     }
   }, []);
-  
+
   const getClients = async () => {
     const lstoken = localStorage.getItem("jwt");
     try {
@@ -75,57 +75,59 @@ function App() {
   };
 
   return (
-    <div className="App flex flex-col justify-center items-center">
+    <div className="App flex flex-col items-center">
       <Router>
         {loggedIn === true ? <Header /> : null}
-        <Routes>
-          <Route path="/landing" element={<Landing />} />
-          <Route
-            path="/"
-            element={
-              <Login
-                getClients={getClients}
-                getTexts={getTexts}
-                loggedIn={loggedIn}
-                setLoggedIn={setLoggedIn}
-              />
-            }
-          />
-          <Route
-            path="/send"
-            element={
-              <SendText
-                clients={clients}
-                selectedGroup={selectedGroup}
-                setSelectedGroup={setSelectedGroup}
-              />
-            }
-          />
-          <Route
-            path="/clients"
-            element={
-              <EditClients
-                clients={clients}
-                setClients={setClients}
-                selected={selected}
-                setSelected={setSelected}
-                initialState={initialStateClient}
-              />
-            }
-          />
-          <Route
-            path="/edit-text"
-            element={
-              <EditText
-                texts={texts}
-                setTexts={setTexts}
-                selectedText={selectedText}
-                setSelectedText={setSelectedText}
-                initialState={initialStateText}
-              />
-            }
-          />
-        </Routes>
+        <div className="flex justify-center items-center mt-10">
+          <Routes>
+            <Route path="/landing" element={<Landing />} />
+            <Route
+              path="/"
+              element={
+                <Login
+                  getClients={getClients}
+                  getTexts={getTexts}
+                  loggedIn={loggedIn}
+                  setLoggedIn={setLoggedIn}
+                />
+              }
+            />
+            <Route
+              path="/send"
+              element={
+                <SendText
+                  clients={clients}
+                  selectedGroup={selectedGroup}
+                  setSelectedGroup={setSelectedGroup}
+                />
+              }
+            />
+            <Route
+              path="/clients"
+              element={
+                <EditClients
+                  clients={clients}
+                  setClients={setClients}
+                  selected={selected}
+                  setSelected={setSelected}
+                  initialState={initialStateClient}
+                />
+              }
+            />
+            <Route
+              path="/edit-text"
+              element={
+                <EditText
+                  texts={texts}
+                  setTexts={setTexts}
+                  selectedText={selectedText}
+                  setSelectedText={setSelectedText}
+                  initialState={initialStateText}
+                />
+              }
+            />
+          </Routes>
+        </div>
       </Router>
     </div>
   );

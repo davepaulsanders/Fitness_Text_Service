@@ -28,7 +28,7 @@ export const EditClients = ({
 
   return (
     <div className="edit-client w-full flex flex-col items-center justify-center">
-      <div className="flex items-center mb-10">
+      <div className="flex w-full items-center mb-10">
         <ComboBox
           singleSelection={true}
           clients={clients}

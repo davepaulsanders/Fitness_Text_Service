@@ -150,7 +150,7 @@ export const ClientEditForm = ({
 
   return (
     <form
-      className="rounded-md shadow p-4 w-full max-w-md mt-5 md:mt-0 mb-20"
+      className="rounded-md shadow p-4 mb-20"
       onSubmit={handleSubmit}
       data-id={selected._id}
     >

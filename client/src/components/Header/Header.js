@@ -11,7 +11,6 @@ export const Header = () => {
 
   const toggleMenu = (e) => {
     document.querySelector("ul").classList.add("transition");
-
     if (document.querySelector("ul").classList.contains("openMenu")) {
       document.querySelector("ul").classList.remove("openMenu");
       document.querySelector(".close").style.display = "none";
@@ -35,7 +34,7 @@ export const Header = () => {
     document.querySelector("ul").classList.remove("openMenu");
   });
   return (
-    <header className="absolute top-0 left-0 md:px-12 md:pt-8 flex w-full items-center justify-between">
+    <header className="flex w-full items-center justify-between mt-6">
       <Link className="pl-6" to="/">
         <h1 className="font-bold text-4xl whitespace-nowrap">Fitness Text</h1>
       </Link>

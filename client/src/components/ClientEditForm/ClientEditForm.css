@@ -1,5 +1,6 @@
 form {
     background-color: rgb(214, 187, 117);
+    
 }
 .delete-client, .cancel-delete-client {
     display: none;
