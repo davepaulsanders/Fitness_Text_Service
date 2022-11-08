@@ -49,9 +49,12 @@ function App() {
   const getClients = async () => {
     const lstoken = localStorage.getItem("jwt");
     try {
-      const response = await fetch("http://localhost:3001/api/clients", {
-        headers: { Authorization: lstoken },
-      });
+      const response = await fetch(
+        "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/api/clients",
+        {
+          headers: { Authorization: lstoken },
+        }
+      );
       const clients = await response.json();
       setClients(clients);
       setSelected(clients[0]);
@@ -63,9 +66,12 @@ function App() {
   const getTexts = async () => {
     const lstoken = localStorage.getItem("jwt");
     try {
-      const response = await fetch("http://localhost:3001/api/messages", {
-        headers: { Authorization: lstoken },
-      });
+      const response = await fetch(
+        "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/api/messages",
+        {
+          headers: { Authorization: lstoken },
+        }
+      );
       const textResponseJSON = await response.json();
       setTexts(textResponseJSON);
       setSelectedText(textResponseJSON[0]);
@@ -75,7 +81,7 @@ function App() {
   };
 
   return (
-    <div className="App flex flex-col items-center">
+    <div data-testid="app" className="App flex flex-col items-center">
       <Router>
         {loggedIn === true ? <Header /> : null}
         <div className="flex justify-center items-center mt-10">

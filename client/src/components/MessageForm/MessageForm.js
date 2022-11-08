@@ -26,12 +26,19 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
     }
 
     try {
-      const messageToSend = await fetch("http://localhost:3001/singletext", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Authorization: lstoken },
-        body: JSON.stringify(messageBody),
-      });
+      const messageToSend = await fetch(
+        "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/singletext",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: lstoken,
+          },
+          body: JSON.stringify(messageBody),
+        }
+      );
       const messageToSendJSON = await messageToSend.json();
+
       if (messageToSendJSON.errors) {
         document.querySelector(".message-form-info").style.color = "red";
         document.querySelector(".message-form-info").innerHTML = `${

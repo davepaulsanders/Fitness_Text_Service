@@ -14,19 +14,29 @@ export const Login = ({ getClients, getTexts, loggedIn, setLoggedIn }) => {
 
   const handleSubmit = async (e) => {
     const body = { username, password };
-
     e.preventDefault();
-    const token = await fetch("http://localhost:3001/api/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    // if any fields are empty
+    if (username === "" || password === "") {
+      document.querySelector(".error-message").style.color = "red";
+      document.querySelector(".error-message").innerHTML =
+        "Please fill out all fields!";
+      return;
+    }
+    const token = await fetch(
+      "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/api/users/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+    );
 
     const tokenResponse = await token.json();
 
     if (tokenResponse.error) {
       document.querySelector(".error-message").style.color = "red";
       document.querySelector(".error-message").innerHTML = tokenResponse.error;
+      
     } else {
       localStorage.setItem("jwt", tokenResponse.userToken);
       setLoggedIn(true);
@@ -37,7 +47,8 @@ export const Login = ({ getClients, getTexts, loggedIn, setLoggedIn }) => {
   };
   return (
     <form
-      className="p-6 w-11/12 lg:w-4/12 shadow bg-white"
+      data-testid="login-form"
+      className="p-6 shadow bg-white"
       onSubmit={handleSubmit}
     >
       <h1 className="text-left mb-6 text-2xl font-bold">
@@ -65,7 +76,7 @@ export const Login = ({ getClients, getTexts, loggedIn, setLoggedIn }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <p className="error-message mb-4"></p>
+      <p data-testid="error" className="error-message mb-4"></p>
       <button
         type="submit"
         className="bg-blue-400 hover:bg-blue-500 text-xl py-2 w-full rounded-md"
