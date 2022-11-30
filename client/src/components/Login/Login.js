@@ -23,7 +23,7 @@ export const Login = ({ getClients, getTexts, loggedIn, setLoggedIn }) => {
       return;
     }
     const token = await fetch(
-      "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/api/users/login",
+      "http://localhost:3001/api/users/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

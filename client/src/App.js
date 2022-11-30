@@ -45,12 +45,12 @@ function App() {
       getTexts();
     }
   }, []);
-
+  
   const getClients = async () => {
     const lstoken = localStorage.getItem("jwt");
     try {
       const response = await fetch(
-        "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/api/clients",
+        "http://localhost:3001/api/clients",
         {
           headers: { Authorization: lstoken },
         }
@@ -67,7 +67,7 @@ function App() {
     const lstoken = localStorage.getItem("jwt");
     try {
       const response = await fetch(
-        "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/api/messages",
+        "http://localhost:3001/api/messages",
         {
           headers: { Authorization: lstoken },
         }

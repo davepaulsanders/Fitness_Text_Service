@@ -201,6 +201,7 @@ export const EditDailyMessageForm = ({
             Message Text
           </label>
           <textarea
+            rows="10"
             id="message-text"
             className="form-input py-2 shadow-inner mb-4"
             type="text"
