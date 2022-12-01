@@ -4,6 +4,7 @@ const db = require("./config/connection");
 const controllers = require("./controllers");
 const cors = require("cors");
 const passport = require("passport");
+const { incrementClient } = require("./incrementClientDay");
 
 const app = express();
 app.use(cors());
@@ -30,7 +31,7 @@ db.once("open", async () => {
   // start scheduled SMS process
 
   //scheduledSMS.initScheduledSMS();
-
+  incrementClient();
   app.listen(3001, () => {
     console.log("Express server listening on port 3000");
   });
