@@ -11,7 +11,7 @@ const Message = require("./models/Message");
 exports.initScheduledSMS = () => {
   // initiates this process regularly at set time
 
-  const scheduledSMS = cron.schedule("*/1 * * * *", async () => {
+  const scheduledSMS = cron.schedule("0 6 * * *", async () => {
     const clients = await Client.find({});
     // messages sorted by which day it is supposed to be sent
     const messages = await Message.find({}).sort({ messageDay: 1 });
