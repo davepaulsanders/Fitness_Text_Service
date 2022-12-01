@@ -27,7 +27,7 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
 
     try {
       const messageToSend = await fetch(
-        "https://nyv0w4diy4.execute-api.us-east-1.amazonaws.com/dev/singletext",
+        "http://localhost:3001/singletext",
         {
           method: "POST",
           headers: {

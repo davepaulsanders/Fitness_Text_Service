@@ -15,7 +15,7 @@ db.once("open", async () => {
     await User.deleteMany({});
     await Message.insertMany([
       {
-        messageText: `Good Morning! Today begins your journey to better health!
+        messageText: `Good Morning *! Today begins your journey to better health!
 
 💥 Day 1 Tips Video:
 https://tinyurl.com/mtdkksej
@@ -29,9 +29,7 @@ https://tinyurl.com/mtdkksej
 👉 For Accountability...
 Time to close the door behind us so we only move FORWARD! Go on Facebook and/or Instagram, make this post, and tag me.
       
-“Day 1 of changing my habits. I can’t wait to reach my goal!”
-      
-👋😊 What time is good for you to schedule your 5 minute check-in tonight!?`,
+“Day 1 of changing my habits. I can’t wait to reach my goal!”`,
         messageDay: 1,
       },
       {
@@ -86,7 +84,7 @@ Looking forward to our call tomorrow to celebrate your wins and share what to ex
         messageDay: 4,
       },
       {
-        messageText: `Good morning and welcome to Day 5!!
+        messageText: `Good morning * and welcome to Day 5!!
 
 You should be hitting fat burn 🔥 and feeling AMAZING! As you continue on program, you will experience:
 More energy
@@ -104,7 +102,19 @@ Your results will be AMAZING, and people are going to want to know what you're d
       `,
         messageDay: 5,
       },
-      { messageText: "This is the sixth day message", messageDay: 6 },
+      { messageText: `Day 6 already? Can you believe your 1st week is almost over?!
+
+BTW, careful doing Google searches as there is A LOT of rogue stuff on the Internet that can kick you out of “fat burn”. This is why we recommend getting Optavia program approved recipes ONLY from only these 3 sources:
+
+👉 Check out the Optavia App! OPTAVIA
+
+You can modify your order or find an amazing assortment of “plan approved” Lean and Greens, all organized by the protein or veggie type you are looking to use. Simply use your email that you gave me to set up your account and the password is Welcome1! (capital W and ! on the end)
+
+👉 Optavia Pinterest page:
+https://www.pinterest.com/optavia/_created/
+
+👉 FB Group (Clients only) “Choosing Health For Life”
+https://www.facebook.com/groups/394310908189709/media/albums`, messageDay: 6 },
       {
         messageText: `Good Morning! One more day to complete week 1!!
         
@@ -116,7 +126,7 @@ Your results will be AMAZING, and people are going to want to know what you're d
         messageDay: 7,
       },
       {
-        messageText: `Congratulations!! It's Day 8 and you made it, just as I knew you would!
+        messageText: `Congratulations *!! It's Day 8 and you made it, just as I knew you would!
 
 💥 Day 8 Tips Video:
 https://tinyurl.com/tv7p7h4s
@@ -135,7 +145,7 @@ This morning…
         messageDay: 8,
       },
       {
-        messageText: `Good morning! Welcome to DAY 9 and going strong!!
+        messageText: `Good morning *! Welcome to DAY 9 and going strong!!
 
 Now that you’ve got a week in the books and are rocking this program, it’s time to really start focusing on those healthy habits! Make sure you’ve completed Element 1 and 2 if you haven’t already!
 
@@ -164,7 +174,7 @@ Remember the goal is to have and live a long term Healthy Lifestyle NOT just tem
         messageDay: 9,
       },
       {
-        messageText: `Congratulations on reaching Day 10! You are doing THIS!
+        messageText: `Congratulations on reaching Day 10 *! You are doing THIS!
 
 💥 VERY IMPORTANT 💥
 
@@ -185,7 +195,7 @@ Pro Tip: Adjust your next order process date, to avoid high volume processing ti
 
 Or if easier for you, call our Client Success Team and they can help you at 1-888-OPTAVIA.
 
-⭐️ I am so proud of you! Let me know if you have any questions!`,
+⭐️ I am so proud of you *! Let me know if you have any questions!`,
         messageDay: 10,
       },
       {
@@ -209,7 +219,7 @@ Each week you can expect a quick check-in call from me to see how you are doing 
 
 I coach because I wanted to pay this gift forward. Hearing from my clients not only helps THEM be successful, but it keeps me accountable in my own health journey as well!
 
-⭐️ Super proud of you! You are doing great and....it only gets better from here!!`,
+⭐️ Super proud of you *! You are doing great and....it only gets better from here!!`,
         messageDay: 11,
       },
       {
@@ -252,7 +262,7 @@ These are hosted by our amazing OPTAVIA Coaches, who will share key tips to help
         messageDay: 13,
       },
       {
-        messageText: `Day 14!!! Tomorrow is your 2-week mark and you are ROCKING IT!!!
+        messageText: `Day 14 *!!! Tomorrow is your 2-week mark and you are ROCKING IT!!!
 
 By now, you should be in a great groove, have found some favorite fuelings and L&G meals. You are seeing the benefits of your hard work and dedication! Get ready to inspire your friends and family, because you are AMAZING!
       
@@ -283,16 +293,16 @@ Don't forget to take your 2-week pictures either tonight or tomorrow morning and
         daysElapsed: 4,
         startDate: "10/19/2022",
       },
-      {
-        username: "willTynch",
-        firstName: "Will",
-        lastName: "Tynch",
-        email: "will@gmail.com",
-        phoneNumber: willPhone,
-        weightLossGoals: "0 pounds",
-        daysElapsed: 9,
-        startDate: "11/30/2022",
-      },
+      // {
+      //   username: "willTynch",
+      //   firstName: "Will",
+      //   lastName: "Tynch",
+      //   email: "will@gmail.com",
+      //   phoneNumber: willPhone,
+      //   weightLossGoals: "0 pounds",
+      //   daysElapsed: 9,
+      //   startDate: "11/30/2022",
+      // },
     ]);
     await User.create({
       username: "bonnie",
