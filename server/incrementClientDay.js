@@ -8,5 +8,6 @@ exports.incrementClient = () => {
   const incrementClientDay = cron.schedule("0 0 * * *", async () => {
     await Client.updateMany({}, { $inc: { daysElapsed: 1 } });
   });
+
   incrementClientDay.start();
 };

@@ -40,7 +40,7 @@ db.once("open", async () => {
   // start scheduled SMS process
   scheduledSMS.initScheduledSMS();
   // start daily increment of client daysElapsed
-  incrementClient.incrementClientDay();
+  incrementClient.incrementClient();
 
   app.listen(3001, () => {
     console.log("Express server listening on port 3000");
