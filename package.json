@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
-    "start": "cd server && pm2 start --no-daemon server.js --watch",
-    "build": "npm install && cd client && npm run build"
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\""
   },
   "repository": {
     "type": "git",
