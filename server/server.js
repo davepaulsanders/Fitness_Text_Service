@@ -7,6 +7,7 @@ const passport = require("passport");
 const incrementClient = require("./incrementClientDay");
 const scheduledSMS = require("./scheduledSMS");
 const app = express();
+
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
