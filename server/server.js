@@ -27,6 +27,13 @@ app.get("/response", (req, res) => {
   res.type("text/xml").send(twiml.toString());
 });
 
+if (process.env.NODE_ENV === 'production') {
+  //*Set static folder up in production
+  app.use(express.static('client/build'));
+
+  app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+}
+
 db.once("open", async () => {
   
   // start scheduled SMS process
