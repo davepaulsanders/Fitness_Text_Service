@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "build": "cd client; npm install; npm run build;",
-    "start": "cd server; npm install; pm2 start --no-daemon server.js --watch"
+    "start": "cd server; npm install; pm2 start server.js --watch"
   },
   "repository": {
     "type": "git",
