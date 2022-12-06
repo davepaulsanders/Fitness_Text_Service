@@ -8,6 +8,9 @@ const incrementClient = require("./incrementClientDay");
 const scheduledSMS = require("./scheduledSMS");
 const app = express();
 const path = require("path");
+require("dotenv").config();
+
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -45,7 +48,7 @@ db.once("open", async () => {
   // start daily increment of client daysElapsed
   incrementClient.incrementClient();
 
-  app.listen(3001, () => {
-    console.log("Express server listening on port 3000");
+  app.listen(PORT, () => {
+    console.log(`Express server listening on port ${PORT}`);
   });
 });
