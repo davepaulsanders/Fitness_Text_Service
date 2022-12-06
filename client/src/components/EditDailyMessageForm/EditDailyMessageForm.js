@@ -48,7 +48,7 @@ export const EditDailyMessageForm = ({
     if (document.querySelector(".text-action").classList.contains("hidden")) {
       try {
         const updatedMessage = await fetch(
-          "http://localhost:3001/api/messages",
+          "https://fitness-text-backend.onrender.com/api/messages",
           {
             method: "PUT",
             headers: {
@@ -88,7 +88,7 @@ export const EditDailyMessageForm = ({
         const body = { ...selectedText };
         delete body._id;
         const newDailyMessage = await fetch(
-          "http://localhost:3001/api/messages",
+          "https://fitness-text-backend.onrender.com/api/messages",
           {
             method: "POST",
             headers: {
@@ -144,7 +144,7 @@ export const EditDailyMessageForm = ({
         const _id = document.querySelector("form").getAttribute("data-id");
 
         const deletedMessage = await fetch(
-          "http://localhost:3001/api/messages",
+          "https://fitness-text-backend.onrender.com/api/messages",
           {
             method: "DELETE",
             headers: {

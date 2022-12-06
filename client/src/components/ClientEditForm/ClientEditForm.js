@@ -37,7 +37,7 @@ export const ClientEditForm = ({
       return;
     }
     try {
-      const updatedClient = await fetch("http://localhost:3001/api/clients", {
+      const updatedClient = await fetch("https://fitness-text-backend.onrender.com/api/clients", {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: lstoken },
         body: JSON.stringify(data),
@@ -75,7 +75,7 @@ export const ClientEditForm = ({
       return;
     }
     try {
-      const newClient = await fetch("http://localhost:3001/api/clients", {
+      const newClient = await fetch("https://fitness-text-backend.onrender.com/api/clients", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: lstoken },
         body: JSON.stringify(data),
@@ -113,7 +113,7 @@ export const ClientEditForm = ({
 
     if (e.target.innerHTML === "Delete") {
       try {
-        const deleteClient = await fetch("http://localhost:3001/api/clients", {
+        const deleteClient = await fetch("https://fitness-text-backend.onrender.com/api/clients", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

@@ -45,12 +45,12 @@ function App() {
       getTexts();
     }
   }, []);
-  
+
   const getClients = async () => {
     const lstoken = localStorage.getItem("jwt");
     try {
       const response = await fetch(
-        "http://localhost:3001/api/clients",
+        "https://fitness-text-backend.onrender.com/api/clients",
         {
           headers: { Authorization: lstoken },
         }
@@ -67,7 +67,7 @@ function App() {
     const lstoken = localStorage.getItem("jwt");
     try {
       const response = await fetch(
-        "http://localhost:3001/api/messages",
+        "https://fitness-text-backend.onrender.com/api/messages",
         {
           headers: { Authorization: lstoken },
         }

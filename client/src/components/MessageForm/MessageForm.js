@@ -27,7 +27,7 @@ export const MessageForm = ({ selectedGroup, setSelectedGroup }) => {
 
     try {
       const messageToSend = await fetch(
-        "http://localhost:3001/singletext",
+        "https://fitness-text-backend.onrender.com/singletext",
         {
           method: "POST",
           headers: {
