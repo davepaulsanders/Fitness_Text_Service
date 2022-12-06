@@ -23,7 +23,7 @@ export const Login = ({ getClients, getTexts, loggedIn, setLoggedIn }) => {
       return;
     }
     const token = await fetch(
-      "http://localhost:3001/api/users/login",
+      "https://fitness-text-backend.onrender.com/api/users/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,7 +36,6 @@ export const Login = ({ getClients, getTexts, loggedIn, setLoggedIn }) => {
     if (tokenResponse.error) {
       document.querySelector(".error-message").style.color = "red";
       document.querySelector(".error-message").innerHTML = tokenResponse.error;
-      
     } else {
       localStorage.setItem("jwt", tokenResponse.userToken);
       setLoggedIn(true);
