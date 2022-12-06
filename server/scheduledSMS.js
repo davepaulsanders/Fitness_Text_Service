@@ -29,4 +29,5 @@ exports.initScheduledSMS = () => {
   });
 
   scheduledSMS.start();
+  console.log("Daily message service started...")
 };

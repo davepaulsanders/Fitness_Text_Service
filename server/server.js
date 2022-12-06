@@ -7,6 +7,7 @@ const passport = require("passport");
 const incrementClient = require("./incrementClientDay");
 const scheduledSMS = require("./scheduledSMS");
 const app = express();
+const path = require("path");
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -39,7 +40,6 @@ app.get("*", (req, res) => {
 });
 
 db.once("open", async () => {
-  
   // start scheduled SMS process
   scheduledSMS.initScheduledSMS();
   // start daily increment of client daysElapsed

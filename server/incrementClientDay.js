@@ -10,4 +10,5 @@ exports.incrementClient = () => {
   });
 
   incrementClientDay.start();
+  console.log("Incrementing clients daysElapsed service started...");
 };
