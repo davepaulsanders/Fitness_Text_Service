@@ -1,5 +1,5 @@
 const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, "/etc/secrets/.env") });
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 const db = require("../config/connection");
 const Client = require("../models/Client");
 const Message = require("../models/Message");
@@ -102,8 +102,7 @@ Your results will be AMAZING, and people are going to want to know what you're d
       `,
         messageDay: 5,
       },
-      {
-        messageText: `Day 6 already? Can you believe your 1st week is almost over?!
+      { messageText: `Day 6 already? Can you believe your 1st week is almost over?!
 
 BTW, careful doing Google searches as there is A LOT of rogue stuff on the Internet that can kick you out of “fat burn”. This is why we recommend getting Optavia program approved recipes ONLY from only these 3 sources:
 
@@ -115,9 +114,7 @@ You can modify your order or find an amazing assortment of “plan approved” L
 https://www.pinterest.com/optavia/_created/
 
 👉 FB Group (Clients only) “Choosing Health For Life”
-https://www.facebook.com/groups/394310908189709/media/albums`,
-        messageDay: 6,
-      },
+https://www.facebook.com/groups/394310908189709/media/albums`, messageDay: 6 },
       {
         messageText: `Good Morning! One more day to complete week 1!!
         

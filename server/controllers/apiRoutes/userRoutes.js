@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const User = require("../../models/User");
-const path = require("path");
-require("dotenv").config({ path: path.join(__dirname, "/etc/secrets/.env") });
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 router.post("/login", async (req, res) => {
